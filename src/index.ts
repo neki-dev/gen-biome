@@ -2,7 +2,6 @@ import generateNoise from './perlin';
 
 export type Biom = {
   tileIndex: number
-  name: string
   level: number
 };
 

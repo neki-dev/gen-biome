@@ -39,7 +39,6 @@ regenerateSeed | Regenerate cached seed         | bollean   | false
 
 Parameter | Description               | Type
 --------- | ------------------------- | -------
-name      | Biom name                 | string
 tileIndex | Texture index for tilemap | number
 level     | Biom limit                | number
 
@@ -48,23 +47,26 @@ level     | Biom limit                | number
 ```js
 const generateMap = require('biom-generator');
 
-const BIOMS = [{
-    name: 'water',
-    tileIndex: 0,
+const BIOMS = {
+    WATER: 0,
+    GRASS: 1,
+    MOUNTS: 2,
+}
+
+const biomList = [{
+    tileIndex: BIOMS.WATER,
     level: 0.15,
 }, {
-    name: 'grass',
-    tileIndex: 1,
+    tileIndex: BIOMS.GRASS,
     level: 0.60,
 }, {
-    name: 'mount',
-    tileIndex: 2,
+    tileIndex: BIOMS.MOUNTS,
     level: 1.00,
 }];
 
 const tilemap = generateMap({
     width: 500,
     height: 400,
-    bioms: BIOMS,
+    bioms: biomList,
 });
 ```

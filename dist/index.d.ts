@@ -1,6 +1,5 @@
 export declare type Biom = {
     tileIndex: number;
-    name: string;
     level: number;
 };
 export declare type Tilemap = number[][];
