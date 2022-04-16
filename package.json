@@ -1,0 +1,35 @@
+{
+  "name": "biom-generator",
+  "description": "Generation random map with bioms",
+  "version": "1.0.0",
+  "keywords": [
+    "map",
+    "generation",
+    "biom",
+    "tilemap"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Nikita Galadiy",
+    "email": "dev@neki.guru",
+    "url": "https://neki.guru/"
+  },
+  "main": "./dist/index.js",
+  "scripts": {
+    "lint": "eslint ./src --fix",
+    "build": "gulp"
+  },
+  "devDependencies": {
+    "@neki-dev/eslint-config": "github:neki-dev/eslint-config",
+    "@types/node": "^17.0.23",
+    "gulp": "^4.0.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-uglify": "^3.0.2",
+    "merge2": "^1.4.1",
+    "typescript": "^4.6.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neki-dev/biom-generator.git"
+  }
+}
