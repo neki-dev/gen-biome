@@ -1,0 +1,16 @@
+name: build
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14.x'
+      - name: Install
+        run: npm install
+      - run: npm install -D mocha
+      - name: Test and build
+        run: npm run test --if-present
+      - run: npm run build
