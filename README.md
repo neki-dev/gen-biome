@@ -20,27 +20,31 @@ npm i biom-generator
 * ### Usage
 
 ```js
-generateMap(parameters: GenerationParameters): number[][]
+generateMap(
+    // List of bioms parameters
+    bioms: Biom[],
+    // Generation parameters
+    parameters: GenerationParameters,
+): number[][]
 ```
-
-* ### Generation parameters
-
-Parameter      | Description                    | Type      | Default
--------------- | ------------------------------ | --------- | ----
-width          | Map width                      | number    | 
-height         | Map height                     | number    | 
-bioms          | Bioms list                     | Biom[]    | 
-frequency      | Map detalization               | number    | 10
-redistribution | Raise the elevation to a power | number    | 1.1
-seed           | Custom perlin seed             | number    | null
-regenerateSeed | Regenerate cached seed         | bollean   | false
 
 * ### Biom parameters
 
 Parameter | Description               | Type
 --------- | ------------------------- | -------
-tileIndex | Texture index for tilemap | number
-level     | Biom limit                | number
+`tileIndex` | Texture index for tilemap | number
+`level`     | Biom limit                | number
+
+* ### Generation parameters
+
+Parameter      | Description                    | Type      | Default
+-------------- | ------------------------------ | --------- | ----
+`width`          | Map width                      | number    | 
+`height`         | Map height                     | number    | 
+`frequency`      | Map detalization               | number    | 10
+`redistribution` | Raise the elevation to a power | number    | 1.1
+`seed`           | Custom perlin seed             | number    | null
+`regenerateSeed` | Regenerate cached seed         | boolean   | false
 
 * ### Example
 
@@ -51,7 +55,7 @@ const BIOMS = {
     WATER: 0,
     GRASS: 1,
     MOUNTS: 2,
-}
+};
 
 const biomList = [{
     tileIndex: BIOMS.WATER,
@@ -64,9 +68,8 @@ const biomList = [{
     level: 1.00,
 }];
 
-const tilemap = generateMap({
+const tilemap = generateMap(biomList, {
     width: 500,
     height: 400,
-    bioms: biomList,
 });
 ```

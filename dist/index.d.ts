@@ -2,13 +2,11 @@ export declare type Biom = {
     tileIndex: number;
     level: number;
 };
-export declare type Tilemap = number[][];
 declare type GenerationParameters = {
     width: number;
     height: number;
     frequency?: number;
     redistribution?: number;
-    bioms: Biom[];
     octaves?: number;
     ampFalloff?: number;
     seed?: number[];
@@ -18,9 +16,10 @@ declare type GenerationParameters = {
  * Generation random map with bioms
  * Return 2D matrix (number[][])
  *
+ * @param {Biom[]} bioms - List of bioms parameters
  * @param {GenerationParameters} parameters - Generation parameters
  *
  * @returns {Tilemap}
  */
-declare function generateMap(parameters: GenerationParameters): Tilemap;
+declare function generateMap(bioms: Biom[], parameters: GenerationParameters): number[][];
 export = generateMap;

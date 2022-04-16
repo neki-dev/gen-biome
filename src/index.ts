@@ -5,14 +5,11 @@ export type Biom = {
   level: number
 };
 
-export type Tilemap = number[][];
-
 type GenerationParameters = {
   width: number
   height: number
   frequency?: number
   redistribution?: number
-  bioms: Biom[]
   octaves?: number
   ampFalloff?: number
   seed?: number[]
@@ -23,13 +20,14 @@ type GenerationParameters = {
  * Generation random map with bioms
  * Return 2D matrix (number[][])
  *
+ * @param {Biom[]} bioms - List of bioms parameters
  * @param {GenerationParameters} parameters - Generation parameters
  *
  * @returns {Tilemap}
  */
-function generateMap(parameters: GenerationParameters): Tilemap {
+function generateMap(bioms: Biom[], parameters: GenerationParameters): number[][] {
   const {
-    width, height, bioms, frequency = 10, redistribution = 1,
+    width, height, frequency = 10, redistribution = 1,
     ...perlinParameters
   } = parameters;
 
