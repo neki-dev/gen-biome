@@ -9,7 +9,6 @@ declare type GenerationParameters = {
     redistribution?: number;
     octaves?: number;
     ampFalloff?: number;
-    seed?: number[];
     regenerateSeed?: boolean;
 };
 /**

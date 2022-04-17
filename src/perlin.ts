@@ -4,7 +4,6 @@ type NoiseParameters = {
   y: number
   octaves?: number
   ampFalloff?: number
-  seed?: number[]
   regenerateSeed?: boolean
 };
 
@@ -14,11 +13,13 @@ const PERLIN_ZWRAPB = 8;
 const PERLIN_ZWRAP = 1 << PERLIN_ZWRAPB;
 const PERLIN_SIZE = 4095;
 
-function scaledCosine(i: number) {
+let perlinSeed: number[];
+
+function scaledCosine(i: number): number {
   return 0.5 * (1.0 - Math.cos(i * Math.PI));
 }
 
-function generateSeed() {
+function generateSeed(): number[] {
   const seed = [];
   for (let i = 0; i < PERLIN_SIZE + 1; i++) {
     seed[i] = Math.random();
@@ -27,20 +28,16 @@ function generateSeed() {
   return seed;
 }
 
-let perlinSeed = generateSeed();
-
 export default function generateNoise(parameters: NoiseParameters): number {
   const {
     x, y,
     octaves = 4, ampFalloff = 0.5,
-    seed, regenerateSeed,
+    regenerateSeed,
   } = parameters;
 
-  if (regenerateSeed) {
+  if (!perlinSeed || regenerateSeed) {
     perlinSeed = generateSeed();
   }
-
-  const currentSeed = seed || perlinSeed;
 
   let xi = Math.floor(x);
   let yi = Math.floor(y);
@@ -62,30 +59,31 @@ export default function generateNoise(parameters: NoiseParameters): number {
     rxf = scaledCosine(xf);
     ryf = scaledCosine(yf);
 
-    n1 = currentSeed[of & PERLIN_SIZE];
-    n1 += rxf * (currentSeed[(of + 1) & PERLIN_SIZE] - n1);
-    n2 = currentSeed[(of + PERLIN_YWRAP) & PERLIN_SIZE];
-    n2 += rxf * (currentSeed[(of + PERLIN_YWRAP + 1) & PERLIN_SIZE] - n2);
+    n1 = perlinSeed[of & PERLIN_SIZE];
+    n1 += rxf * (perlinSeed[(of + 1) & PERLIN_SIZE] - n1);
+    n2 = perlinSeed[(of + PERLIN_YWRAP) & PERLIN_SIZE];
+    n2 += rxf * (perlinSeed[(of + PERLIN_YWRAP + 1) & PERLIN_SIZE] - n2);
     n1 += ryf * (n2 - n1);
 
     of += PERLIN_ZWRAP;
-    n2 = currentSeed[of & PERLIN_SIZE];
-    n2 += rxf * (currentSeed[(of + 1) & PERLIN_SIZE] - n2);
-    n3 = currentSeed[(of + PERLIN_YWRAP) & PERLIN_SIZE];
-    n3 += rxf * (currentSeed[(of + PERLIN_YWRAP + 1) & PERLIN_SIZE] - n3);
+    n2 = perlinSeed[of & PERLIN_SIZE];
+    n2 += rxf * (perlinSeed[(of + 1) & PERLIN_SIZE] - n2);
+    n3 = perlinSeed[(of + PERLIN_YWRAP) & PERLIN_SIZE];
+    n3 += rxf * (perlinSeed[(of + PERLIN_YWRAP + 1) & PERLIN_SIZE] - n3);
     n2 += ryf * (n3 - n2);
 
     r += n1 * ampl;
     ampl *= ampFalloff;
+
     xi <<= 1;
     xf *= 2;
-    yi <<= 1;
-    yf *= 2;
-
     if (xf >= 1.0) {
       xi++;
       xf--;
     }
+
+    yi <<= 1;
+    yf *= 2;
     if (yf >= 1.0) {
       yi++;
       yf--;

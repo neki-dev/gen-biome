@@ -24,16 +24,16 @@ generateMap(
     // List of bioms parameters
     bioms: Biom[],
     // Generation parameters
-    parameters: GenerationParameters,
+    parameters: GenerationParameters
 ): number[][]
 ```
 
 * ### Biom parameters
 
-Parameter | Description               | Type
---------- | ------------------------- | -------
+Parameter   | Description               | Type
+----------- | ------------------------- | -------
 `tileIndex` | Texture index for tilemap | number
-`level`     | Biom limit                | number
+`level`     | Biom breakpoint (height)  | number
 
 * ### Generation parameters
 
@@ -43,7 +43,6 @@ Parameter      | Description                    | Type      | Default
 `height`         | Map height                     | number    | 
 `frequency`      | Map detalization               | number    | 10
 `redistribution` | Raise the elevation to a power | number    | 1.1
-`seed`           | Custom perlin seed             | number    | null
 `regenerateSeed` | Regenerate cached seed         | boolean   | false
 
 * ### Example

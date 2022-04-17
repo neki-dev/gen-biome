@@ -1,7 +1,7 @@
 {
   "name": "biom-generator",
   "description": "Generation random map with bioms",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "keywords": [
     "map",
     "generation",
