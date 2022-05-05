@@ -1,12 +1,13 @@
 {
-  "name": "biom-generator",
-  "description": "Generation random map with bioms",
+  "name": "gen-biome",
+  "description": "Generation random map with biomes",
   "version": "1.0.5",
   "keywords": [
     "map",
     "generation",
-    "biom",
-    "tilemap"
+    "biome",
+    "tilemap",
+    "perlin"
   ],
   "license": "MIT",
   "author": {
@@ -30,6 +31,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/neki-dev/biom-generator.git"
+    "url": "git+https://github.com/neki-dev/gen-biome.git"
   }
 }

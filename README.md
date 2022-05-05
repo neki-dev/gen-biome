@@ -1,9 +1,9 @@
-## Biom generator
-[![Npm package version](https://badgen.net/npm/v/biom-generator)](https://npmjs.com/package/biom-generator)
-[![Small size](https://badge-size.herokuapp.com/neki-dev/biom-generator/master/dist/index.js)](https://github.com/neki-dev/biom-generator/blob/master/dist/index.js)
-[![Building](https://github.com/neki-dev/biom-generator/actions/workflows/npm.yml/badge.svg)](https://github.com/neki-dev/biom-generator/actions)
+## Biome generator
+[![Npm package version](https://badgen.net/npm/v/gen-biome)](https://npmjs.com/package/gen-biome)
+[![Small size](https://badge-size.herokuapp.com/neki-dev/gen-biome/master/dist/index.js)](https://github.com/neki-dev/gen-biome/blob/master/dist/index.js)
+[![Building](https://github.com/neki-dev/gen-biome/actions/workflows/npm.yml/badge.svg)](https://github.com/neki-dev/gen-biome/actions)
 
-Generation random map with bioms
+Generation random map with biomes
 
 Example 1 | Example 2 | Example 3
 --|---|--
@@ -14,26 +14,26 @@ Example 1 | Example 2 | Example 3
 * ### Install
 
 ```sh
-npm i biom-generator
+npm i gen-biome
 ```
 
 * ### Usage
 
 ```js
 generateMap(
-    // List of bioms parameters
-    bioms: Biom[],
+    // List of biomes parameters
+    bioms: Biome[],
     // Generation parameters
     parameters: GenerationParameters
 ): number[][]
 ```
 
-* ### Biom parameters
+* ### Biome parameters
 
 Parameter   | Description               | Type
 ----------- | ------------------------- | -------
 `tileIndex` | Texture index for tilemap | number
-`level`     | Biom breakpoint (height)  | number
+`level`     | Biome breakpoint (height) | number
 
 * ### Generation parameters
 
@@ -45,33 +45,34 @@ Parameter        | Description                     | Type      | Default
 `redistribution` | Degree of increase in recession | number    | 1.1
 `octaves`        | Perlin octaves                  | number    | 4
 `ampFalloff`     | Gain smoothing                  | number    | 0.5
-`regenerateSeed` | Regenerate cached seed          | boolean   | false
 `fillEmpty`      | Tile index for empty bioms      | number    | 
 
 * ### Example
 
 ```js
-const generateMap = require('biom-generator');
+const generateMap = require('gen-biome');
 
-const BIOMS = {
+const BIOMES = {
     WATER: 0,
     GRASS: 1,
     MOUNTS: 2,
 };
 
-const biomList = [{
-    tileIndex: BIOMS.WATER,
+const biomeList = [{
+    tileIndex: BIOMES.WATER,
     level: 0.15,
 }, {
-    tileIndex: BIOMS.GRASS,
+    tileIndex: BIOMES.GRASS,
     level: 0.60,
 }, {
-    tileIndex: BIOMS.MOUNTS,
+    tileIndex: BIOMES.MOUNTS,
     level: 1.00,
 }];
 
-const tilemap = generateMap(biomList, {
+const tilemap = generateMap(biomeList, {
     width: 500,
     height: 400,
+    frequency: 20,
+    redistribution: 1.5,
 });
 ```

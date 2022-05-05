@@ -4,7 +4,6 @@ type NoiseParameters = {
   y: number
   octaves?: number
   ampFalloff?: number
-  regenerateSeed?: boolean
 };
 
 const PERLIN_YWRAPB = 4;
@@ -32,10 +31,9 @@ export default function generateNoise(parameters: NoiseParameters): number {
   const {
     x, y,
     octaves = 4, ampFalloff = 0.5,
-    regenerateSeed,
   } = parameters;
 
-  if (!perlinSeed || regenerateSeed) {
+  if (!perlinSeed) {
     perlinSeed = generateSeed();
   }
 

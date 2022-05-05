@@ -1,6 +1,6 @@
 import generateNoise from './perlin';
 
-export type Biom = {
+export type Biome = {
   tileIndex: number
   level: number
 };
@@ -12,7 +12,6 @@ type GenerationParameters = {
   redistribution?: number
   octaves?: number
   ampFalloff?: number
-  regenerateSeed?: boolean
   fillEmpty?: number | null
 };
 
@@ -20,12 +19,12 @@ type GenerationParameters = {
  * Generation random map with bioms
  * Return 2D matrix (number[][])
  *
- * @param {Biom[]} bioms - List of bioms parameters
+ * @param {Biome[]} biomes - List of biomes parameters
  * @param {GenerationParameters} parameters - Generation parameters
  *
  * @returns {Tilemap}
  */
-function generateMap(bioms: Biom[], parameters: GenerationParameters): number[][] {
+function generateMap(bioms: Biome[], parameters: GenerationParameters): number[][] {
   const {
     width, height,
     frequency = 10, redistribution = 1.1, fillEmpty = undefined,

@@ -3,7 +3,6 @@ declare type NoiseParameters = {
     y: number;
     octaves?: number;
     ampFalloff?: number;
-    regenerateSeed?: boolean;
 };
 export default function generateNoise(parameters: NoiseParameters): number;
 export {};
