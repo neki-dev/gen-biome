@@ -46,7 +46,7 @@ Parameter        | Description                     | Type      | Default
 `octaves`        | Perlin octaves                  | number    | 4
 `ampFalloff`     | Gain smoothing                  | number    | 0.5
 `regenerateSeed` | Regenerate cached seed          | boolean   | false
-`fillEmpty`      | Tile index for empty bioms      | number    | null
+`fillEmpty`      | Tile index for empty bioms      | number    | 
 
 * ### Example
 

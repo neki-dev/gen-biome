@@ -28,7 +28,7 @@ type GenerationParameters = {
 function generateMap(bioms: Biom[], parameters: GenerationParameters): number[][] {
   const {
     width, height,
-    frequency = 10, redistribution = 1.1, fillEmpty = null,
+    frequency = 10, redistribution = 1.1, fillEmpty = undefined,
     ...perlinParameters
   } = parameters;
 
@@ -43,7 +43,8 @@ function generateMap(bioms: Biom[], parameters: GenerationParameters): number[][
       });
       cell **= redistribution;
       const biom = bioms.find(({ level }) => (cell <= level));
-      map[y][x] = biom ? biom.tileIndex : fillEmpty;
+      const empty = (fillEmpty === undefined) ? bioms[bioms.length - 1].tileIndex : fillEmpty;
+      map[y][x] = biom ? biom.tileIndex : empty;
     }
   }
 
