@@ -37,13 +37,16 @@ Parameter   | Description               | Type
 
 * ### Generation parameters
 
-Parameter      | Description                    | Type      | Default
--------------- | ------------------------------ | --------- | ----
-`width`          | Map width                      | number    | 
-`height`         | Map height                     | number    | 
-`frequency`      | Map detalization               | number    | 10
-`redistribution` | Raise the elevation to a power | number    | 1.1
-`regenerateSeed` | Regenerate cached seed         | boolean   | false
+Parameter        | Description                     | Type      | Default
+---------------- | ------------------------------- | --------- | ----
+`width`          | Map width                       | number    | 
+`height`         | Map height                      | number    | 
+`frequency`      | Map detalization                | number    | 10
+`redistribution` | Degree of increase in recession | number    | 1.1
+`octaves`        | Perlin octaves                  | number    | 4
+`ampFalloff`     | Gain smoothing                  | number    | 0.5
+`regenerateSeed` | Regenerate cached seed          | boolean   | false
+`fillEmpty`      | Tile index for empty bioms      | number    | null
 
 * ### Example
 

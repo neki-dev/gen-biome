@@ -10,6 +10,7 @@ declare type GenerationParameters = {
     octaves?: number;
     ampFalloff?: number;
     regenerateSeed?: boolean;
+    fillEmpty?: number | null;
 };
 /**
  * Generation random map with bioms

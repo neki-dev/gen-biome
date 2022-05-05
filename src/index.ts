@@ -13,6 +13,7 @@ type GenerationParameters = {
   octaves?: number
   ampFalloff?: number
   regenerateSeed?: boolean
+  fillEmpty?: number | null
 };
 
 /**
@@ -26,7 +27,8 @@ type GenerationParameters = {
  */
 function generateMap(bioms: Biom[], parameters: GenerationParameters): number[][] {
   const {
-    width, height, frequency = 10, redistribution = 1,
+    width, height,
+    frequency = 10, redistribution = 1.1, fillEmpty = null,
     ...perlinParameters
   } = parameters;
 
@@ -41,7 +43,7 @@ function generateMap(bioms: Biom[], parameters: GenerationParameters): number[][
       });
       cell **= redistribution;
       const biom = bioms.find(({ level }) => (cell <= level));
-      map[y][x] = biom ? biom.tileIndex : bioms[bioms.length - 1].tileIndex;
+      map[y][x] = biom ? biom.tileIndex : fillEmpty;
     }
   }
 
