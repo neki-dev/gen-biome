@@ -2,40 +2,26 @@
 type NoiseParameters = {
   x: number
   y: number
-  octaves?: number
-  ampFalloff?: number
+  octaves: number
+  seed: number[]
 };
+
+export const PERLIN_SIZE = 4095;
 
 const PERLIN_YWRAPB = 4;
 const PERLIN_YWRAP = 1 << PERLIN_YWRAPB;
 const PERLIN_ZWRAPB = 8;
 const PERLIN_ZWRAP = 1 << PERLIN_ZWRAPB;
-const PERLIN_SIZE = 4095;
-
-let perlinSeed: number[];
+const PERLIN_AMP_FALLOFF = 0.5;
 
 function scaledCosine(i: number): number {
   return 0.5 * (1.0 - Math.cos(i * Math.PI));
 }
 
-function generateSeed(): number[] {
-  const seed = [];
-  for (let i = 0; i < PERLIN_SIZE + 1; i++) {
-    seed[i] = Math.random();
-  }
-
-  return seed;
-}
-
 export default function generateNoise(parameters: NoiseParameters): number {
   const {
-    x, y,
-    octaves = 4, ampFalloff = 0.5,
+    x, y, seed, octaves,
   } = parameters;
-
-  if (!perlinSeed) {
-    perlinSeed = generateSeed();
-  }
 
   let xi = Math.floor(x);
   let yi = Math.floor(y);
@@ -57,21 +43,21 @@ export default function generateNoise(parameters: NoiseParameters): number {
     rxf = scaledCosine(xf);
     ryf = scaledCosine(yf);
 
-    n1 = perlinSeed[of & PERLIN_SIZE];
-    n1 += rxf * (perlinSeed[(of + 1) & PERLIN_SIZE] - n1);
-    n2 = perlinSeed[(of + PERLIN_YWRAP) & PERLIN_SIZE];
-    n2 += rxf * (perlinSeed[(of + PERLIN_YWRAP + 1) & PERLIN_SIZE] - n2);
+    n1 = seed[of & PERLIN_SIZE];
+    n1 += rxf * (seed[(of + 1) & PERLIN_SIZE] - n1);
+    n2 = seed[(of + PERLIN_YWRAP) & PERLIN_SIZE];
+    n2 += rxf * (seed[(of + PERLIN_YWRAP + 1) & PERLIN_SIZE] - n2);
     n1 += ryf * (n2 - n1);
 
     of += PERLIN_ZWRAP;
-    n2 = perlinSeed[of & PERLIN_SIZE];
-    n2 += rxf * (perlinSeed[(of + 1) & PERLIN_SIZE] - n2);
-    n3 = perlinSeed[(of + PERLIN_YWRAP) & PERLIN_SIZE];
-    n3 += rxf * (perlinSeed[(of + PERLIN_YWRAP + 1) & PERLIN_SIZE] - n3);
+    n2 = seed[of & PERLIN_SIZE];
+    n2 += rxf * (seed[(of + 1) & PERLIN_SIZE] - n2);
+    n3 = seed[(of + PERLIN_YWRAP) & PERLIN_SIZE];
+    n3 += rxf * (seed[(of + PERLIN_YWRAP + 1) & PERLIN_SIZE] - n3);
     n2 += ryf * (n3 - n2);
 
     r += n1 * ampl;
-    ampl *= ampFalloff;
+    ampl *= PERLIN_AMP_FALLOFF;
 
     xi <<= 1;
     xf *= 2;
