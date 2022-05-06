@@ -5,7 +5,7 @@
 
 Процедурная генерация 2D карт.
 
-- ## [Демо](https://codesandbox.io/s/gen-biome-nox4dh)
+- ### [Демо](https://codesandbox.io/s/gen-biome-nox4dh)
 - ### Установка
 
 ```sh
