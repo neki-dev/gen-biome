@@ -5,18 +5,12 @@
 
 Процедурная генерация 2D карт.
 
-- | - | -
---|---|--
-![Example 3](./docs/example-3.png) | ![Example 1](./docs/example-1.png) | ![Example 2](./docs/example-2.png)
-
-.
-
+- ## [Демо](https://codesandbox.io/s/gen-biome-nox4dh)
 - ### Установка
 
 ```sh
 npm i gen-biome
 ```
-
 - ### [Функционал](https://github.com/neki-dev/gen-biome/wiki/Функционал)
 
 - ### [Параметры карты](https://github.com/neki-dev/gen-biome/wiki/Параметры-карты)
