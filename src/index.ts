@@ -123,8 +123,8 @@ class GenBiome {
       bordersPuriry = 10,
     } = layer.parameters;
 
-    const frequency = Math.max(1, Math.min(100, frequencyChange));
-    const octaves = 24 - Math.max(4, Math.min(20, bordersPuriry));
+    const frequency = Math.max(1, Math.min(64, frequencyChange));
+    const octaves = 22 - Math.max(2, Math.min(20, bordersPuriry));
     const redistribution = Math.max(0.1, Math.min(3, sizeDifference));
 
     const map = [];
