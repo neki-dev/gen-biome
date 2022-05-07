@@ -3,11 +3,11 @@ declare class GenBiome {
     /**
      * Map width.
      */
-    private width;
+    readonly width: number;
     /**
      * Map height.
      */
-    private height;
+    readonly height: number;
     /**
      * Layers list.
      */
@@ -23,8 +23,6 @@ declare class GenBiome {
     constructor(parameters: MapParameters);
     /**
      * Add new layer to map with custom generation parameters.
-     *
-     * @param layer - Layer data
      */
     addLayer(layer: BiomeLayer): void;
     /**
@@ -41,9 +39,6 @@ declare class GenBiome {
     getCollideMatrix(): (1 | 0)[][];
     /**
      * Get biom data at map position.
-     *
-     * @param x - Map position X
-     * @param y - Map position Y
      */
     pickBiomeAt(x: number, y: number): Biome | null;
     /**
@@ -51,12 +46,13 @@ declare class GenBiome {
      */
     getBiomes(): Biome[];
     /**
-     * Refresh seed for unique generation.
+     * Refresh to random or custom seed.
      */
-    refreshSeed(): void;
+    refreshSeed(seed?: number[]): void;
     /**
      * Generate map layer.
      */
     private generateLayer;
 }
+export { Biome, BiomeLayer } from './types';
 export = GenBiome;

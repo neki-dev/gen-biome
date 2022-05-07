@@ -5,12 +5,12 @@ class GenBiome {
   /**
    * Map width.
    */
-  private width: number;
+  readonly width: number;
 
   /**
    * Map height.
    */
-  private height: number;
+  readonly height: number;
 
   /**
    * Layers list.
@@ -37,8 +37,6 @@ class GenBiome {
 
   /**
    * Add new layer to map with custom generation parameters.
-   *
-   * @param layer - Layer data
    */
   public addLayer(layer: BiomeLayer) {
     this.layers.push(layer);
@@ -72,6 +70,10 @@ class GenBiome {
    * Convert map data to array of tiles indexes.
    */
   public getTilesMatrix(): number[][] {
+    if (this.data.length === 0) {
+      throw Error('Map not generated. First use `generate()`');
+    }
+
     return this.data.map((y) => (
       y.map((x) => x.tileIndex)
     ));
@@ -81,6 +83,10 @@ class GenBiome {
    * Convert map data to array of collide areas.
    */
   public getCollideMatrix(): (1 | 0)[][] {
+    if (this.data.length === 0) {
+      throw Error('Map not generated. First use `generate()`');
+    }
+
     return this.data.map((y) => (
       y.map((x) => (x.collide ? 1 : 0))
     ));
@@ -88,11 +94,12 @@ class GenBiome {
 
   /**
    * Get biom data at map position.
-   *
-   * @param x - Map position X
-   * @param y - Map position Y
    */
   public pickBiomeAt(x: number, y: number): Biome | null {
+    if (this.data.length === 0) {
+      throw Error('Map not generated. First use `generate()`');
+    }
+
     return this.data[y]?.[x] || null;
   }
 
@@ -104,12 +111,19 @@ class GenBiome {
   }
 
   /**
-   * Refresh seed for unique generation.
+   * Refresh to random or custom seed.
    */
-  public refreshSeed() {
-    this.seed = [];
-    for (let i = 0; i < PERLIN_SIZE + 1; i++) {
-      this.seed.push(Math.random());
+  public refreshSeed(seed: number[] = null) {
+    if (seed) {
+      if (seed.length !== PERLIN_SIZE + 1) {
+        throw Error(`Invaid seed length. Expect ${PERLIN_SIZE + 1} numbers`);
+      }
+      this.seed = seed;
+    } else {
+      this.seed = [];
+      for (let i = 0; i < PERLIN_SIZE + 1; i++) {
+        this.seed.push(Math.random());
+      }
     }
   }
 
@@ -146,6 +160,8 @@ class GenBiome {
     return map;
   }
 }
+
+export { Biome, BiomeLayer } from './types';
 
 // export for commonjs
 // @ts-ignore

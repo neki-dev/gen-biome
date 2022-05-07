@@ -1,9 +1,20 @@
 export type LayerParameters = {
-  // Biome change frequency
+  /**
+   * Biome change frequency
+   * Default: 10
+   */
   frequencyChange?: number
-  // Biome size difference
+
+  /**
+   * Biome size difference
+   * Default: 1.1
+   */
   sizeDifference?: number
-  // Purity of biome borders
+
+  /**
+   * Purity of biome borders
+   * Default: 10
+   */
   bordersPuriry?: number
 };
 
