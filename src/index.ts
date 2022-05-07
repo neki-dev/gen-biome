@@ -152,7 +152,13 @@ class GenBiome {
           y: (y / this.height) * frequency,
         });
         cell **= redistribution;
-        const biome = layer.biomes.find(({ level }) => (cell <= level));
+        const biome = layer.biomes.find(({ level }) => {
+          const [min, max] = level;
+          return (
+            (min === undefined || cell >= min)
+            && (max === undefined || cell < max)
+          );
+        });
         map[y][x] = biome || null;
       }
     }

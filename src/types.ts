@@ -20,7 +20,7 @@ export type LayerParameters = {
 
 export type Biome = {
   tileIndex: number
-  level: number
+  level: [number, number]
   collide?: boolean
   props?: {
     [key: string]: any
