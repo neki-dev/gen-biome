@@ -4,6 +4,6 @@ declare type NoiseParameters = {
     octaves: number;
     seed: number[];
 };
-export declare const PERLIN_SIZE = 4095;
+export declare const DEFAULT_PERLIN_SIZE = 4095;
 export default function generateNoise(parameters: NoiseParameters): number;
 export {};

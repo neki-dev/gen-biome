@@ -50,6 +50,10 @@ declare class GenBiome {
      */
     refreshSeed(seed?: number[]): void;
     /**
+     * Get generation seed.
+     */
+    getSeed(): number[];
+    /**
      * Generate map layer.
      */
     private generateLayer;

@@ -6,7 +6,7 @@ type NoiseParameters = {
   seed: number[]
 };
 
-export const PERLIN_SIZE = 4095;
+export const DEFAULT_PERLIN_SIZE = 4095;
 
 const PERLIN_YWRAPB = 4;
 const PERLIN_YWRAP = 1 << PERLIN_YWRAPB;
@@ -22,6 +22,8 @@ export default function generateNoise(parameters: NoiseParameters): number {
   const {
     x, y, seed, octaves,
   } = parameters;
+
+  const PERLIN_SIZE = seed.length - 1;
 
   let xi = Math.floor(x);
   let yi = Math.floor(y);

@@ -1,4 +1,4 @@
-import generateNoise, { PERLIN_SIZE } from './perlin';
+import generateNoise, { DEFAULT_PERLIN_SIZE } from './perlin';
 import { Biome, BiomeLayer, MapParameters } from './types';
 
 class GenBiome {
@@ -33,6 +33,8 @@ class GenBiome {
     this.width = width;
     this.height = height;
     this.layers = layers;
+
+    this.refreshSeed();
   }
 
   /**
@@ -46,10 +48,6 @@ class GenBiome {
    * Generate map for each layer and merging them.
    */
   public generate() {
-    if (this.seed.length === 0) {
-      this.refreshSeed();
-    }
-
     this.data = [];
     for (const layer of this.layers) {
       const layerData = this.generateLayer(layer);
@@ -115,16 +113,20 @@ class GenBiome {
    */
   public refreshSeed(seed: number[] = null) {
     if (seed) {
-      if (seed.length !== PERLIN_SIZE + 1) {
-        throw Error(`Invaid seed length. Expect ${PERLIN_SIZE + 1} numbers`);
-      }
       this.seed = seed;
     } else {
       this.seed = [];
-      for (let i = 0; i < PERLIN_SIZE + 1; i++) {
+      for (let i = 0; i < DEFAULT_PERLIN_SIZE + 1; i++) {
         this.seed.push(Math.random());
       }
     }
+  }
+
+  /**
+   * Get generation seed.
+   */
+  public getSeed(): number[] {
+    return this.seed;
   }
 
   /**
