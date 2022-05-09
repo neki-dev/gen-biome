@@ -22,9 +22,17 @@ declare class GenBiome {
     private seed;
     constructor(parameters: MapParameters);
     /**
+     * Get random generation seed.
+     */
+    static generateRandomSeed(): number[];
+    /**
      * Add new layer to map with custom generation parameters.
      */
     addLayer(layer: BiomeLayer): void;
+    /**
+     * Remove all layers from map.
+     */
+    clearLayers(): void;
     /**
      * Generate map for each layer and merging them.
      */
@@ -46,13 +54,13 @@ declare class GenBiome {
      */
     getBiomes(): Biome[];
     /**
-     * Refresh to random or custom seed.
-     */
-    refreshSeed(seed?: number[]): void;
-    /**
-     * Get generation seed.
+     * Get current generation seed.
      */
     getSeed(): number[];
+    /**
+     * Set generation seed.
+     */
+    setSeed(seed: number[]): void;
     /**
      * Generate map layer.
      */

@@ -28,13 +28,27 @@ class GenBiome {
   private seed: number[] = [];
 
   constructor(parameters: MapParameters) {
-    const { width, height, layers = [] } = parameters;
+    const {
+      width, height, seed,
+      layers = [],
+    } = parameters;
 
     this.width = width;
     this.height = height;
     this.layers = layers;
+    this.seed = seed || GenBiome.generateRandomSeed();
+  }
 
-    this.refreshSeed();
+  /**
+   * Get random generation seed.
+   */
+  static generateRandomSeed(): number[] {
+    const seed = [];
+    for (let i = 0; i < DEFAULT_PERLIN_SIZE + 1; i++) {
+      seed.push(Math.random());
+    }
+
+    return seed;
   }
 
   /**
@@ -42,6 +56,13 @@ class GenBiome {
    */
   public addLayer(layer: BiomeLayer) {
     this.layers.push(layer);
+  }
+
+  /**
+   * Remove all layers from map.
+   */
+  public clearLayers() {
+    this.layers = [];
   }
 
   /**
@@ -109,24 +130,17 @@ class GenBiome {
   }
 
   /**
-   * Refresh to random or custom seed.
-   */
-  public refreshSeed(seed: number[] = null) {
-    if (seed) {
-      this.seed = seed;
-    } else {
-      this.seed = [];
-      for (let i = 0; i < DEFAULT_PERLIN_SIZE + 1; i++) {
-        this.seed.push(Math.random());
-      }
-    }
-  }
-
-  /**
-   * Get generation seed.
+   * Get current generation seed.
    */
   public getSeed(): number[] {
     return this.seed;
+  }
+
+  /**
+   * Set generation seed.
+   */
+  public setSeed(seed: number[]) {
+    this.seed = seed;
   }
 
   /**
