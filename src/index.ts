@@ -1,7 +1,7 @@
 import generateNoise, { DEFAULT_PERLIN_SIZE } from './perlin';
 import { Biome, BiomeLayer, MapParameters } from './types';
 
-class GenBiome {
+export default class GenBiome {
   /**
    * Map width.
    */
@@ -183,8 +183,4 @@ class GenBiome {
   }
 }
 
-export { Biome, BiomeLayer } from './types';
-
-// export for commonjs
-// @ts-ignore
-export = GenBiome;
+export * from './types';

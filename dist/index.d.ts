@@ -1,5 +1,5 @@
 import { Biome, BiomeLayer, MapParameters } from './types';
-declare class GenBiome {
+export default class GenBiome {
     /**
      * Map width.
      */
@@ -66,5 +66,4 @@ declare class GenBiome {
      */
     private generateLayer;
 }
-export { Biome, BiomeLayer } from './types';
-export = GenBiome;
+export * from './types';

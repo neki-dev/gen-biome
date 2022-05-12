@@ -9,6 +9,8 @@ Procedural generation 2D map with biomes
 
 * ### [Demo](https://codesandbox.io/s/gen-biome-nox4dh)
 
+.
+
 * ### Install
 
 ```sh
