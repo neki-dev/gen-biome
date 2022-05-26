@@ -15,7 +15,7 @@ export default class GenBiome {
     /**
      * Common map data.
      */
-    data: Biome[][];
+    private data;
     /**
      * Perlin seed.
      */
@@ -38,6 +38,14 @@ export default class GenBiome {
      */
     generate(): void;
     /**
+     * Get common map data.
+     */
+    getData(): Biome[][];
+    /**
+     * Set common map data.
+     */
+    setData(data: Biome[][]): void;
+    /**
      * Convert map data to array of tiles indexes.
      */
     getTilesMatrix(): number[][];
@@ -48,7 +56,11 @@ export default class GenBiome {
     /**
      * Get biom data at map position.
      */
-    pickBiomeAt(x: number, y: number): Biome | null;
+    getBiomeAt(x: number, y: number): Biome | null;
+    /**
+     * Set new biom data at map position.
+     */
+    setBiomeAt(x: number, y: number, biome: Biome): void;
     /**
      * Get biomes from all layers.
      */
