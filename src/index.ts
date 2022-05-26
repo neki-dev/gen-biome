@@ -20,7 +20,7 @@ export default class GenBiome {
   /**
    * Common map data.
    */
-  public data: Biome[][] = [];
+  private data: Biome[][] = [];
 
   /**
    * Perlin seed.
@@ -86,6 +86,24 @@ export default class GenBiome {
   }
 
   /**
+   * Get common map data.
+   */
+  public getData(): Biome[][] {
+    return this.data;
+  }
+
+  /**
+   * Set common map data.
+   */
+  public setData(data: Biome[][]) {
+    if (this.data.length !== this.height || this.data[0].length !== this.width) {
+      throw Error('Invalid map data size');
+    }
+
+    this.data = data;
+  }
+
+  /**
    * Convert map data to array of tiles indexes.
    */
   public getTilesMatrix(): number[][] {
@@ -114,12 +132,29 @@ export default class GenBiome {
   /**
    * Get biom data at map position.
    */
-  public pickBiomeAt(x: number, y: number): Biome | null {
+  public getBiomeAt(x: number, y: number): Biome | null {
     if (this.data.length === 0) {
       throw Error('Map not generated. First use `generate()`');
     }
+    if (this.data[y]?.[x] === undefined) {
+      return null;
+    }
 
-    return this.data[y]?.[x] || null;
+    return this.data[y][x];
+  }
+
+  /**
+   * Set new biom data at map position.
+   */
+  public setBiomeAt(x: number, y: number, biome: Biome) {
+    if (this.data.length === 0) {
+      throw Error('Map not generated. First use `generate()`');
+    }
+    if (this.data[y]?.[x] === undefined) {
+      return;
+    }
+
+    this.data[y][x] = biome;
   }
 
   /**
