@@ -1,5 +1,5 @@
 import { BiomeData, BiomeLayer, MapParameters } from './types';
-export default class GenBiome {
+export default class GenBiome<T = BiomeData> {
     /**
      * Map width.
      */
@@ -43,15 +43,15 @@ export default class GenBiome {
     /**
      * Get map matrix.
      */
-    getMatrix<T = BiomeData>(): T[][];
+    getMatrix(): T[][];
     /**
      * Get biome data at map position.
      */
-    getAt<T = BiomeData>(x: number, y: number): T;
+    getAt(x: number, y: number): T;
     /**
      * Replace biome data at map position.
      */
-    setAt<T = BiomeData>(x: number, y: number, data: T): void;
+    setAt(x: number, y: number, data: T): void;
     /**
      * Get current generation seed.
      */

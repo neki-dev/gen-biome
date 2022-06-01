@@ -1,7 +1,7 @@
 import generateNoise, { DEFAULT_PERLIN_SIZE } from './perlin';
 import { Biome, BiomeData, BiomeLayer, MapParameters } from './types';
 
-export default class GenBiome {
+export default class GenBiome<T = BiomeData> {
   /**
    * Map width.
    */
@@ -20,7 +20,7 @@ export default class GenBiome {
   /**
    * Common map data.
    */
-  private data: BiomeData[][] = [];
+  private data: T[][] = [];
 
   /**
    * Perlin seed.
@@ -92,21 +92,21 @@ export default class GenBiome {
   /**
    * Get map matrix.
    */
-  public getMatrix<T = BiomeData>(): T[][] {
-    return <T[][]> this.data;
+  public getMatrix(): T[][] {
+    return this.data;
   }
 
   /**
    * Get biome data at map position.
    */
-  public getAt<T = BiomeData>(x: number, y: number): T {
-    return <T> this.data[y]?.[x];
+  public getAt(x: number, y: number): T {
+    return this.data[y]?.[x];
   }
 
   /**
    * Replace biome data at map position.
    */
-  public setAt<T = BiomeData>(x: number, y: number, data: T) {
+  public setAt(x: number, y: number, data: T) {
     if (!this.data[y]?.[x]) {
       return;
     }
@@ -131,7 +131,7 @@ export default class GenBiome {
   /**
    * Generate map layer.
    */
-  private generateLayer(layer: BiomeLayer): Biome[][] {
+  private generateLayer(layer: BiomeLayer): Biome<T>[][] {
     const {
       frequencyChange = 10,
       sizeDifference = 1.1,
