@@ -1,4 +1,4 @@
-import { Biome, BiomeLayer, MapParameters } from './types';
+import { BiomeData, BiomeLayer, MapParameters } from './types';
 export default class GenBiome {
     /**
      * Map width.
@@ -20,6 +20,9 @@ export default class GenBiome {
      * Perlin seed.
      */
     private seed;
+    /**
+     * Generation biome constructor.
+     */
     constructor(parameters: MapParameters);
     /**
      * Get random generation seed.
@@ -38,33 +41,17 @@ export default class GenBiome {
      */
     generate(): void;
     /**
-     * Get common map data.
+     * Get map matrix.
      */
-    getData(): Biome[][];
+    getMatrix(): BiomeData[][];
     /**
-     * Set common map data.
+     * Get biome data at map position.
      */
-    setData(data: Biome[][]): void;
+    getAt<T = any>(x: number, y: number): BiomeData;
     /**
-     * Convert map data to array of tiles indexes.
+     * Set new biome data at map position.
      */
-    getTilesMatrix(): number[][];
-    /**
-     * Convert map data to array of collide areas.
-     */
-    getCollideMatrix(): (1 | 0)[][];
-    /**
-     * Get biom data at map position.
-     */
-    getBiomeAt(x: number, y: number): Biome | null;
-    /**
-     * Set new biom data at map position.
-     */
-    setBiomeAt(x: number, y: number, biome: Biome): void;
-    /**
-     * Get biomes from all layers.
-     */
-    getBiomes(): Biome[];
+    setAt(x: number, y: number, biomeData: BiomeData): void;
     /**
      * Get current generation seed.
      */

@@ -15,13 +15,12 @@ export declare type LayerParameters = {
      */
     bordersPuriry?: number;
 };
+export declare type BiomeData = {
+    [key: string]: any;
+};
 export declare type Biome = {
-    tileIndex: number;
-    level: [number, number?];
-    collide?: boolean;
-    props?: {
-        [key: string]: any;
-    };
+    breakpoint: [number, number?];
+    data: BiomeData;
 };
 export declare type BiomeLayer = {
     biomes: Biome[];

@@ -18,13 +18,13 @@ export type LayerParameters = {
   bordersPuriry?: number
 };
 
+export type BiomeData = {
+  [key: string]: any
+};
+
 export type Biome = {
-  tileIndex: number
-  level: [number, number?]
-  collide?: boolean
-  props?: {
-    [key: string]: any
-  }
+  breakpoint: [number, number?]
+  data: BiomeData
 };
 
 export type BiomeLayer = {

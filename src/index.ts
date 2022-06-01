@@ -1,5 +1,5 @@
 import generateNoise, { DEFAULT_PERLIN_SIZE } from './perlin';
-import { Biome, BiomeLayer, MapParameters } from './types';
+import { Biome, BiomeData, BiomeLayer, MapParameters } from './types';
 
 export default class GenBiome {
   /**
@@ -20,23 +20,27 @@ export default class GenBiome {
   /**
    * Common map data.
    */
-  private data: Biome[][] = [];
+  private data: BiomeData[][] = [];
 
   /**
    * Perlin seed.
    */
   private seed: number[] = [];
 
+  /**
+   * Generation biome constructor.
+   */
   constructor(parameters: MapParameters) {
     const {
       width, height, seed,
       layers = [],
     } = parameters;
 
-    this.width = width;
-    this.height = height;
     this.layers = layers;
     this.seed = seed || GenBiome.generateRandomSeed();
+
+    this.width = width;
+    this.height = height;
   }
 
   /**
@@ -70,15 +74,15 @@ export default class GenBiome {
    */
   public generate() {
     this.data = [];
-    for (const layer of this.layers) {
-      const layerData = this.generateLayer(layer);
-      for (let y = 0; y < layerData.length; y++) {
-        for (let x = 0; x < layerData[y].length; x++) {
-          if (layerData[y][x] !== null) {
-            if (!this.data[y]) {
-              this.data[y] = [];
-            }
-            this.data[y][x] = layerData[y][x];
+    for (const layerData of this.layers) {
+      const layer = this.generateLayer(layerData);
+      for (let y = 0; y < layer.length; y++) {
+        if (!this.data[y]) {
+          this.data[y] = [];
+        }
+        for (let x = 0; x < layer[y].length; x++) {
+          if (layer[y][x]) {
+            this.data[y][x] = layer[y][x].data;
           }
         }
       }
@@ -86,82 +90,28 @@ export default class GenBiome {
   }
 
   /**
-   * Get common map data.
+   * Get map matrix.
    */
-  public getData(): Biome[][] {
+  public getMatrix(): BiomeData[][] {
     return this.data;
   }
 
   /**
-   * Set common map data.
+   * Get biome data at map position.
    */
-  public setData(data: Biome[][]) {
-    if (this.data.length !== this.height || this.data[0].length !== this.width) {
-      throw Error('Invalid map data size');
-    }
-
-    this.data = data;
+  public getAt<T = any>(x: number, y: number): BiomeData {
+    return <T> this.data[y]?.[x];
   }
 
   /**
-   * Convert map data to array of tiles indexes.
+   * Set new biome data at map position.
    */
-  public getTilesMatrix(): number[][] {
-    if (this.data.length === 0) {
-      throw Error('Map not generated. First use `generate()`');
-    }
-
-    return this.data.map((y) => (
-      y.map((x) => x.tileIndex)
-    ));
-  }
-
-  /**
-   * Convert map data to array of collide areas.
-   */
-  public getCollideMatrix(): (1 | 0)[][] {
-    if (this.data.length === 0) {
-      throw Error('Map not generated. First use `generate()`');
-    }
-
-    return this.data.map((y) => (
-      y.map((x) => (x.collide ? 1 : 0))
-    ));
-  }
-
-  /**
-   * Get biom data at map position.
-   */
-  public getBiomeAt(x: number, y: number): Biome | null {
-    if (this.data.length === 0) {
-      throw Error('Map not generated. First use `generate()`');
-    }
-    if (this.data[y]?.[x] === undefined) {
-      return null;
-    }
-
-    return this.data[y][x];
-  }
-
-  /**
-   * Set new biom data at map position.
-   */
-  public setBiomeAt(x: number, y: number, biome: Biome) {
-    if (this.data.length === 0) {
-      throw Error('Map not generated. First use `generate()`');
-    }
-    if (this.data[y]?.[x] === undefined) {
+  public setAt(x: number, y: number, biomeData: BiomeData) {
+    if (!this.data[y]?.[x]) {
       return;
     }
 
-    this.data[y][x] = biome;
-  }
-
-  /**
-   * Get biomes from all layers.
-   */
-  public getBiomes(): Biome[] {
-    return this.layers.map((layer) => layer.biomes).flat();
+    this.data[y][x] = biomeData;
   }
 
   /**
@@ -203,13 +153,10 @@ export default class GenBiome {
           y: (y / this.height) * frequency,
         });
         cell **= redistribution;
-        const biome = layer.biomes.find(({ level }) => {
-          const [min, max] = level;
-          return (
-            (min === undefined || cell >= min)
-            && (max === undefined || cell < max)
-          );
-        });
+        const biome = layer.biomes.find(({ breakpoint: [min, max] }) => (
+          (min === undefined || cell >= min)
+          && (max === undefined || cell < max)
+        ));
         map[y][x] = biome || null;
       }
     }
