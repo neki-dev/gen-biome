@@ -43,15 +43,15 @@ export default class GenBiome {
     /**
      * Get map matrix.
      */
-    getMatrix(): BiomeData[][];
+    getMatrix<T = BiomeData>(): T[][];
     /**
      * Get biome data at map position.
      */
-    getAt<T = any>(x: number, y: number): BiomeData;
+    getAt<T = BiomeData>(x: number, y: number): T;
     /**
-     * Set new biome data at map position.
+     * Replace biome data at map position.
      */
-    setAt(x: number, y: number, biomeData: BiomeData): void;
+    setAt<T = BiomeData>(x: number, y: number, data: T): void;
     /**
      * Get current generation seed.
      */

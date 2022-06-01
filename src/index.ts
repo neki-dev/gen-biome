@@ -92,26 +92,26 @@ export default class GenBiome {
   /**
    * Get map matrix.
    */
-  public getMatrix(): BiomeData[][] {
-    return this.data;
+  public getMatrix<T = BiomeData>(): T[][] {
+    return <T[][]> this.data;
   }
 
   /**
    * Get biome data at map position.
    */
-  public getAt<T = any>(x: number, y: number): BiomeData {
+  public getAt<T = BiomeData>(x: number, y: number): T {
     return <T> this.data[y]?.[x];
   }
 
   /**
-   * Set new biome data at map position.
+   * Replace biome data at map position.
    */
-  public setAt(x: number, y: number, biomeData: BiomeData) {
+  public setAt<T = BiomeData>(x: number, y: number, data: T) {
     if (!this.data[y]?.[x]) {
       return;
     }
 
-    this.data[y][x] = biomeData;
+    this.data[y][x] = data;
   }
 
   /**

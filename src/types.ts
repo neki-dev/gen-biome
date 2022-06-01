@@ -22,9 +22,9 @@ export type BiomeData = {
   [key: string]: any
 };
 
-export type Biome = {
+export type Biome<T = BiomeData> = {
   breakpoint: [number, number?]
-  data: BiomeData
+  data: T
 };
 
 export type BiomeLayer = {

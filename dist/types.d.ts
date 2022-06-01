@@ -18,9 +18,9 @@ export declare type LayerParameters = {
 export declare type BiomeData = {
     [key: string]: any;
 };
-export declare type Biome = {
+export declare type Biome<T = BiomeData> = {
     breakpoint: [number, number?];
-    data: BiomeData;
+    data: T;
 };
 export declare type BiomeLayer = {
     biomes: Biome[];
