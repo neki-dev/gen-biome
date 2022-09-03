@@ -10,20 +10,18 @@ Procedural generation 2D map with biomes
 
 * ### [Demo](https://codesandbox.io/s/gen-biome-nox4dh)
 
-.
-
 * ### Install
 
 ```sh
 npm i gen-biome
 ```
+.
+- #### [Functional](https://github.com/neki-dev/gen-biome/wiki/Функционал)
 
-- ### [Functional](https://github.com/neki-dev/gen-biome/wiki/Функционал)
+- #### [Map parameters](https://github.com/neki-dev/gen-biome/wiki/Параметры-карты)
 
-- ### [Map parameters](https://github.com/neki-dev/gen-biome/wiki/Параметры-карты)
+- #### [Layers](https://github.com/neki-dev/gen-biome/wiki/Слои)
 
-- ### [Layers](https://github.com/neki-dev/gen-biome/wiki/Слои)
+- #### [Biomes](https://github.com/neki-dev/gen-biome/wiki/Биомы)
 
-- ### [Biomes](https://github.com/neki-dev/gen-biome/wiki/Биомы)
-
-- ### [Examples](https://github.com/neki-dev/gen-biome/wiki/Примеры)
+- #### [Examples](https://github.com/neki-dev/gen-biome/wiki/Примеры)
