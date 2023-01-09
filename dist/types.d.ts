@@ -13,7 +13,7 @@ export declare type LayerParameters = {
      * Purity of biome borders
      * Default: 10
      */
-    bordersPuriry?: number;
+    bordersPurity?: number;
 };
 export declare type BiomeData = {
     [key: string]: any;

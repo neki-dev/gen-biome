@@ -135,11 +135,11 @@ export default class GenBiome<T = BiomeData> {
     const {
       frequencyChange = 10,
       sizeDifference = 1.1,
-      bordersPuriry = 10,
+      bordersPurity = 10,
     } = layer.parameters;
 
     const frequency = Math.max(1, Math.min(64, frequencyChange));
-    const octaves = 22 - Math.max(2, Math.min(20, bordersPuriry));
+    const octaves = 22 - Math.max(2, Math.min(20, bordersPurity));
     const redistribution = Math.max(0.1, Math.min(3, sizeDifference));
 
     const map = [];

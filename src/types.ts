@@ -15,7 +15,7 @@ export type LayerParameters = {
    * Purity of biome borders
    * Default: 10
    */
-  bordersPuriry?: number
+  bordersPurity?: number
 };
 
 export type BiomeData = {
