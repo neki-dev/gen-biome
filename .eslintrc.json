@@ -1,6 +1,3 @@
 {
-  "extends": [
-    "@neki-dev/eslint-config",
-    "@neki-dev/eslint-config/typescript"
-  ]
+  "extends": ["neki/ts"]
 }

@@ -1,5 +1,7 @@
 import generateNoise, { DEFAULT_PERLIN_SIZE } from './perlin';
-import { Biome, BiomeData, BiomeLayer, MapParameters } from './types';
+import {
+  Biome, BiomeData, BiomeLayer, MapParameters,
+} from './types';
 
 export default class GenBiome<T = BiomeData> {
   /**
@@ -48,6 +50,7 @@ export default class GenBiome<T = BiomeData> {
    */
   static generateRandomSeed(): number[] {
     const seed = [];
+
     for (let i = 0; i < DEFAULT_PERLIN_SIZE + 1; i++) {
       seed.push(Math.random());
     }
@@ -76,6 +79,7 @@ export default class GenBiome<T = BiomeData> {
     this.data = [];
     for (const layerData of this.layers) {
       const layer = this.generateLayer(layerData);
+
       for (let y = 0; y < layer.length; y++) {
         if (!this.data[y]) {
           this.data[y] = [];
@@ -143,6 +147,7 @@ export default class GenBiome<T = BiomeData> {
     const redistribution = Math.max(0.1, Math.min(3, sizeDifference));
 
     const map = [];
+
     for (let y = 0; y < this.height; y++) {
       map[y] = [];
       for (let x = 0; x < this.width; x++) {
@@ -152,11 +157,13 @@ export default class GenBiome<T = BiomeData> {
           x: (x / this.width) * frequency,
           y: (y / this.height) * frequency,
         });
+
         cell **= redistribution;
         const biome = layer.biomes.find(({ breakpoint: [min, max] }) => (
           (min === undefined || cell >= min)
           && (max === undefined || cell < max)
         ));
+
         map[y][x] = biome || null;
       }
     }
