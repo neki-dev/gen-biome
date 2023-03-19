@@ -1,5 +1,5 @@
-import { BiomeData, BiomeLayer, MapParameters } from './types';
-export default class GenBiome<T = BiomeData> {
+import { BiomeLayer, MapParameters } from './types';
+export default class GenBiome<T = Record<string, any>> {
     /**
      * Map width.
      */
@@ -23,7 +23,7 @@ export default class GenBiome<T = BiomeData> {
     /**
      * Generation biome constructor.
      */
-    constructor(parameters: MapParameters);
+    constructor(parameters: MapParameters<T>);
     /**
      * Get random generation seed.
      */
@@ -31,7 +31,7 @@ export default class GenBiome<T = BiomeData> {
     /**
      * Add new layer to map with custom generation parameters.
      */
-    addLayer(layer: BiomeLayer): void;
+    addLayer(layer: BiomeLayer<T>): void;
     /**
      * Remove all layers from map.
      */
@@ -47,7 +47,7 @@ export default class GenBiome<T = BiomeData> {
     /**
      * Get biome data at map position.
      */
-    getAt(x: number, y: number): T;
+    getAt(x: number, y: number): T | undefined;
     /**
      * Replace biome data at map position.
      */

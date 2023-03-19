@@ -1,9 +1,7 @@
 import generateNoise, { DEFAULT_PERLIN_SIZE } from './perlin';
-import {
-  Biome, BiomeData, BiomeLayer, MapParameters,
-} from './types';
+import { Biome, BiomeLayer, MapParameters } from './types';
 
-export default class GenBiome<T = BiomeData> {
+export default class GenBiome<T = Record<string, any>> {
   /**
    * Map width.
    */
@@ -17,7 +15,7 @@ export default class GenBiome<T = BiomeData> {
   /**
    * Layers list.
    */
-  private layers: BiomeLayer[];
+  private layers: BiomeLayer<T>[];
 
   /**
    * Common map data.
@@ -32,7 +30,7 @@ export default class GenBiome<T = BiomeData> {
   /**
    * Generation biome constructor.
    */
-  constructor(parameters: MapParameters) {
+  constructor(parameters: MapParameters<T>) {
     const {
       width, height, seed,
       layers = [],
@@ -61,7 +59,7 @@ export default class GenBiome<T = BiomeData> {
   /**
    * Add new layer to map with custom generation parameters.
    */
-  public addLayer(layer: BiomeLayer) {
+  public addLayer(layer: BiomeLayer<T>) {
     this.layers.push(layer);
   }
 
@@ -85,9 +83,7 @@ export default class GenBiome<T = BiomeData> {
           this.data[y] = [];
         }
         for (let x = 0; x < layer[y].length; x++) {
-          if (layer[y][x]) {
-            this.data[y][x] = layer[y][x].data;
-          }
+          this.data[y][x] = layer[y][x].data;
         }
       }
     }
@@ -103,7 +99,7 @@ export default class GenBiome<T = BiomeData> {
   /**
    * Get biome data at map position.
    */
-  public getAt(x: number, y: number): T {
+  public getAt(x: number, y: number): T | undefined {
     return this.data[y]?.[x];
   }
 
@@ -135,7 +131,7 @@ export default class GenBiome<T = BiomeData> {
   /**
    * Generate map layer.
    */
-  private generateLayer(layer: BiomeLayer): Biome<T>[][] {
+  private generateLayer(layer: BiomeLayer<T>): Biome<T>[][] {
     const {
       frequencyChange = 10,
       sizeDifference = 1.1,
@@ -146,7 +142,7 @@ export default class GenBiome<T = BiomeData> {
     const octaves = 22 - Math.max(2, Math.min(20, bordersPurity));
     const redistribution = Math.max(0.1, Math.min(3, sizeDifference));
 
-    const map = [];
+    const map: Biome<T>[][] = [];
 
     for (let y = 0; y < this.height; y++) {
       map[y] = [];
@@ -159,12 +155,17 @@ export default class GenBiome<T = BiomeData> {
         });
 
         cell **= redistribution;
-        const biome = layer.biomes.find(({ breakpoint: [min, max] }) => (
-          (min === undefined || cell >= min)
-          && (max === undefined || cell < max)
+
+        const biome = layer.biomes.find(({ breakpoint }) => (
+          (breakpoint.min === undefined || cell >= breakpoint.min)
+          && (breakpoint.max === undefined || cell < breakpoint.max)
         ));
 
-        map[y][x] = biome || null;
+        if (biome) {
+          map[y][x] = biome;
+        } else {
+          throw Error(`Undefined biome for position [${x}, ${y}]`);
+        }
       }
     }
 

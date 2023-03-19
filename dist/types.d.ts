@@ -1,4 +1,4 @@
-export declare type LayerParameters = {
+export type LayerParameters = {
     /**
      * Biome change frequency
      * Default: 10
@@ -15,20 +15,20 @@ export declare type LayerParameters = {
      */
     bordersPurity?: number;
 };
-export declare type BiomeData = {
-    [key: string]: any;
-};
-export declare type Biome<T = BiomeData> = {
-    breakpoint: [number, number?];
+export type Biome<T> = {
+    breakpoint: {
+        min?: number;
+        max?: number;
+    };
     data: T;
 };
-export declare type BiomeLayer = {
-    biomes: Biome[];
+export type BiomeLayer<T> = {
+    biomes: Biome<T>[];
     parameters: LayerParameters;
 };
-export declare type MapParameters = {
+export type MapParameters<T> = {
     width: number;
     height: number;
-    layers?: BiomeLayer[];
+    layers?: BiomeLayer<T>[];
     seed?: number[];
 };

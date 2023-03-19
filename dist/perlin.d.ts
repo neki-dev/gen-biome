@@ -1,4 +1,4 @@
-declare type NoiseParameters = {
+type NoiseParameters = {
     x: number;
     y: number;
     octaves: number;

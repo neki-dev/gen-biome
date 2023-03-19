@@ -18,23 +18,22 @@ export type LayerParameters = {
   bordersPurity?: number
 };
 
-export type BiomeData = {
-  [key: string]: any
-};
-
-export type Biome<T = BiomeData> = {
-  breakpoint: [number, number?]
+export type Biome<T> = {
+  breakpoint: {
+    min?: number
+    max?: number
+  }
   data: T
 };
 
-export type BiomeLayer = {
-  biomes: Biome[]
+export type BiomeLayer<T> = {
+  biomes: Biome<T>[]
   parameters: LayerParameters
 };
 
-export type MapParameters = {
+export type MapParameters<T> = {
   width: number
   height: number
-  layers?: BiomeLayer[]
+  layers?: BiomeLayer<T>[]
   seed?: number[]
 };
