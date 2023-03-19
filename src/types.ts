@@ -19,7 +19,7 @@ export type LayerParameters = {
 };
 
 export type Biome<T> = {
-  breakpoint: {
+  breakpoint?: {
     min?: number
     max?: number
   }

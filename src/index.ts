@@ -37,7 +37,7 @@ export default class GenBiome<T = Record<string, any>> {
     } = parameters;
 
     this.layers = layers;
-    this.seed = seed || GenBiome.generateRandomSeed();
+    this.seed = seed ?? GenBiome.generateRandomSeed();
 
     this.width = width;
     this.height = height;
@@ -157,14 +157,16 @@ export default class GenBiome<T = Record<string, any>> {
         cell **= redistribution;
 
         const biome = layer.biomes.find(({ breakpoint }) => (
-          (breakpoint.min === undefined || cell >= breakpoint.min)
-          && (breakpoint.max === undefined || cell < breakpoint.max)
+          breakpoint && (
+            (cell >= (breakpoint.min ?? 0))
+            && (breakpoint.max === undefined || cell < breakpoint.max)
+          )
         ));
 
         if (biome) {
           map[y][x] = biome;
         } else {
-          throw Error(`Undefined biome for position [${x}, ${y}]`);
+          throw Error(`Undefined biome for position [${x}, ${y}] with cell height: ${cell}`);
         }
       }
     }
