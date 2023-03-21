@@ -20,6 +20,7 @@
   "main": "./dist/index.js",
   "scripts": {
     "lint": "eslint ./src --fix",
+    "demo": "webpack --mode development --watch --env demo",
     "watch": "webpack --mode development --watch",
     "build": "webpack --mode production"
   },

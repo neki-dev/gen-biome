@@ -1,0 +1,57 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font: 14px Tahoma;
+}
+
+.sandbox {
+  display: flex;
+  padding: 50px;
+  height: 100vh;
+}
+
+.preview {
+  flex: 1;
+  background-color: #ddd;
+  overflow: scroll;
+}
+.preview #screen {
+  display: block;
+  border: 2px solid #555;
+}
+
+.controls {
+  margin-right: 50px;
+  width: 20%;
+  min-width: 300px;
+}
+
+.controls .parameters {
+  margin-bottom: 20px;
+}
+.controls .parameters h2 {
+  margin-bottom: 10px;
+}
+.controls .parameters .items {
+  border: 1px solid #ddd;
+  padding: 15px;
+}
+.controls .parameters .item:not(:last-child) {
+  margin-bottom: 20px;
+}
+.controls .parameters .item label {
+  display: block;
+  margin-bottom: 3px;
+}
+.controls .parameters .item input[type="range"] {
+  width: 100%;
+}
+
+.controls button {
+  margin-top: 15px;
+  padding: 10px 15px;
+}
