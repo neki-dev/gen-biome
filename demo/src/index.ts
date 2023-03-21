@@ -1,26 +1,24 @@
-import { WorldGenerator, WorldLayer, WorldBiome } from '../../src/index';
+import { WorldGenerator } from '../../src/index';
 import { renderOnCanvas } from './render';
-import { BIOMES } from './biomes';
+import { BiomeData, BIOMES } from './biomes';
 import { ui } from './interface';
 
 let savedSeed!: number[];
 
 ui.buttons.generate?.addEventListener('click', () => {
-  const generator = new WorldGenerator({
+  const generator = new WorldGenerator<BiomeData>({
     width: Number(ui.inputs.worldWidth?.value),
     height: Number(ui.inputs.worldHeight?.value),
   });
 
-  const layer = new WorldLayer({
+  const layer = generator.addLayer({
     frequencyChange: Number(ui.inputs.frequencyChange?.value),
     borderSmoothness: Number(ui.inputs.borderSmoothness?.value),
     heightRedistribution: Number(ui.inputs.heightRedistribution?.value),
   });
-  generator.addLayer(layer);
 
   for (const { params, data } of BIOMES) {
-    const biome = new WorldBiome(params, data);
-    layer.addBiome(biome);
+    layer.addBiome(params, data);
   }
 
   const seed = ui.inputs.resetSeed?.checked ? undefined : savedSeed;

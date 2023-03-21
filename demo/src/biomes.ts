@@ -1,4 +1,14 @@
-export const BIOMES = [
+import { WorldBiomeParams } from "../../src";
+
+export type BiomeData = {
+  name: string
+  color: string
+}
+
+export const BIOMES: Array<{
+  params: WorldBiomeParams
+  data: BiomeData
+}> = [
   {
     params: {
       lowerBound: 0.0,

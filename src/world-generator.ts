@@ -1,4 +1,4 @@
-import { WorldParams } from './types';
+import { WorldLayerParams, WorldParams } from './types';
 import { generateNoise, generateSeed } from './utils/perlin';
 import { World } from './world';
 import { WorldBiome } from './world-biome';
@@ -16,8 +16,12 @@ export class WorldGenerator<T = any> {
     this.height = params.height;
   }
 
-  public addLayer(layer: WorldLayer<T>) {
+  public addLayer(params: WorldLayerParams = {}) {
+    const layer = new WorldLayer<T>(params);
+
     this.layers.push(layer);
+
+    return layer;
   }
 
   public clearLayers() {
@@ -35,11 +39,11 @@ export class WorldGenerator<T = any> {
     for (const layer of this.layers) {
       const layerMatrix = this.generateLayer(layer, currentSeed);
 
-      for (let y = 0; y < layerMatrix.length; y++) {
+      for (let y = 0; y < this.height; y++) {
         if (!matrix[y]) {
           matrix[y] = [];
         }
-        for (let x = 0; x < layerMatrix[y].length; x++) {
+        for (let x = 0; x < this.width; x++) {
           if (layerMatrix[y][x]) {
             matrix[y][x] = layerMatrix[y][x].data;
           }
@@ -47,7 +51,15 @@ export class WorldGenerator<T = any> {
       }
     }
 
-    return new World(matrix, currentSeed);
+    for (let y = 0; y < this.height; y++) {
+      for (let x = 0; x < this.width; x++) {
+        if (matrix[y][x] === undefined) {
+          throw Error(`World matrix contains empty biome at ${x},${y}`);
+        }
+      }
+    }
+
+    return new World<T>(matrix, currentSeed);
   }
 
   private generateLayer(layer: WorldLayer<T>, seed: number[]) {

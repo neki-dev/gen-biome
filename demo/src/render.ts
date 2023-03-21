@@ -1,11 +1,11 @@
 import { World } from '../../src/index';
+import { BiomeData } from './biomes';
 import { ui } from './interface';
 
 const ctx = ui.screen.getContext('2d') as CanvasRenderingContext2D;
 const tileSize = 2;
 
-export function renderOnCanvas(world: World) {
-
+export function renderOnCanvas(world: World<BiomeData>) {
   ui.screen.width = world.width * tileSize;
   ui.screen.height = world.height * tileSize;
 

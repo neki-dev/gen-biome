@@ -1,8 +1,8 @@
-import { WorldLayerParams } from './types';
+import { WorldBiomeParams, WorldLayerParams } from './types';
 import { clamp } from './utils/clamp';
 import { WorldBiome } from './world-biome';
 
-export class WorldLayer<T = any> {
+export class WorldLayer<T> {
   private readonly frequency: number;
 
   private readonly octaves: number;
@@ -17,8 +17,12 @@ export class WorldLayer<T = any> {
     this.redistribution = 2.0 - clamp(params?.heightRedistribution, 1.0, [0.5, 1.5]);
   }
 
-  public addBiome(biome: WorldBiome<T>) {
+  public addBiome(params: WorldBiomeParams, data: T) {
+    const biome = new WorldBiome<T>(params, data);
+
     this.biomes.push(biome);
+
+    return biome;
   }
 
   public clearBiomes() {

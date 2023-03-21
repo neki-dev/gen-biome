@@ -1,6 +1,6 @@
 import { WorldBiomeParams } from './types';
 
-export class WorldBiome<T = any> {
+export class WorldBiome<T> {
   public readonly lowerBound: number;
 
   public readonly upperBound: number;

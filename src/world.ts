@@ -1,6 +1,6 @@
 import { WorldBiomePosition } from './types';
 
-export class World<T = any> {
+export class World<T> {
   readonly width: number;
 
   readonly height: number;
@@ -25,8 +25,8 @@ export class World<T = any> {
   }
 
   public replaceAt(position: WorldBiomePosition, data: T) {
-    if (position.y >= this.height || position.x > this.width) {
-      throw Error('Указанная позиция биома выходит за границы мира');
+    if (position.y >= this.height || position.x >= this.width) {
+      throw Error('Specified position is out of world bounds');
     }
 
     this.matrix[position.y][position.x] = data;
