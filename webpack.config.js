@@ -1,8 +1,9 @@
 const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 
-module.exports = (env, { mode }) => {
-  const pathRoot = env.demo ? path.resolve(__dirname, 'demo') : __dirname;
+module.exports = (_, { mode }) => {
+  const isDev = mode === 'development';
+  const pathRoot =isDev ? path.resolve(__dirname, 'demo') : __dirname;
 
   return {
     resolve: {
@@ -14,7 +15,7 @@ module.exports = (env, { mode }) => {
     output: {
       path: path.resolve(pathRoot, 'dist'),
       filename: 'index.js',
-      libraryTarget: env.demo ? undefined : 'commonjs2',
+      libraryTarget: isDev ? undefined : 'commonjs2',
     },
     module: {
       rules: [{
@@ -22,13 +23,13 @@ module.exports = (env, { mode }) => {
         use: [{
           loader: 'ts-loader',
           options: {
-            configFile: 'tsconfig.demo.json',
+            configFile: isDev ? 'tsconfig.dev.json' : undefined,
           },
         }],
       }],
     },
-    devtool: mode === 'development' ? 'inline-source-map' : undefined,
-    optimization: mode === 'production' ? {
+    devtool: isDev ? 'inline-source-map' : undefined,
+    optimization: {
       minimize: true,
       minimizer: [
         new TerserPlugin({
@@ -37,6 +38,6 @@ module.exports = (env, { mode }) => {
           },
         }),
       ],
-    } : undefined,
+    },
   };
 };

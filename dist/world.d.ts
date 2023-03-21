@@ -1,5 +1,5 @@
 import { WorldBiomePosition } from './types';
-export declare class World<T = any> {
+export declare class World<T> {
     readonly width: number;
     readonly height: number;
     readonly seed: number[];

@@ -23,6 +23,7 @@ ui.buttons.generate?.addEventListener('click', () => {
 
   const seed = ui.inputs.resetSeed?.checked ? undefined : savedSeed;
   const world = generator.generate(seed);
+
   savedSeed = world.getSeed();
 
   renderOnCanvas(world);

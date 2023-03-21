@@ -1,12 +1,12 @@
-import { WorldLayerParams } from './types';
+import { WorldBiomeParams, WorldLayerParams } from './types';
 import { WorldBiome } from './world-biome';
-export declare class WorldLayer<T = any> {
+export declare class WorldLayer<T> {
     private readonly frequency;
     private readonly octaves;
     private readonly redistribution;
     private biomes;
     constructor(params?: WorldLayerParams);
-    addBiome(biome: WorldBiome<T>): void;
+    addBiome(params: WorldBiomeParams, data: T): WorldBiome<T>;
     clearBiomes(): void;
     getBiomes(): WorldBiome<T>[];
     getBiomeByHeight(height: number): WorldBiome<T> | undefined;
