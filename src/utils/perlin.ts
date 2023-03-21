@@ -1,29 +1,45 @@
 /* eslint-disable no-bitwise */
 type NoiseParameters = {
+  seed: number[]
   x: number
   y: number
+  frequency: number
+  redistribution: number
   octaves: number
-  seed: number[]
 };
 
-export const DEFAULT_PERLIN_SIZE = 4095;
-
+const DEFAULT_PERLIN_SIZE = 4095;
 const PERLIN_YWRAPB = 4;
 const PERLIN_YWRAP = 1 << PERLIN_YWRAPB;
 const PERLIN_ZWRAPB = 8;
 const PERLIN_ZWRAP = 1 << PERLIN_ZWRAPB;
 const PERLIN_AMP_FALLOFF = 0.5;
+const PERLIN_AVG_POWER = 1.1;
 
 function scaledCosine(i: number): number {
   return 0.5 * (1.0 - Math.cos(i * Math.PI));
 }
 
-export default function generateNoise(parameters: NoiseParameters): number {
+export function generateSeed() {
+  const seed: number[] = [];
+
+  for (let i = 0; i < DEFAULT_PERLIN_SIZE + 1; i++) {
+    seed.push(Math.random());
+  }
+
+  return seed;
+}
+
+export function generateNoise(parameters: NoiseParameters): number {
+  let { x, y } = parameters;
   const {
-    x, y, seed, octaves,
+    seed, frequency, redistribution, octaves,
   } = parameters;
 
   const PERLIN_SIZE = seed.length - 1;
+
+  x *= frequency;
+  y *= frequency;
 
   let xi = Math.floor(x);
   let yi = Math.floor(y);
@@ -75,6 +91,14 @@ export default function generateNoise(parameters: NoiseParameters): number {
       yf--;
     }
   }
+
+  if (r > 0.5) {
+    r **= (1.5 - r) / PERLIN_AVG_POWER;
+  } else if (r < 0.5) {
+    r **= (1.5 - r) * PERLIN_AVG_POWER;
+  }
+
+  r **= redistribution;
 
   return r;
 }

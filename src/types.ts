@@ -1,39 +1,48 @@
-export type LayerParameters = {
+export type WorldParams = {
+  width: number
+  height: number
+};
+
+export type WorldLayerParams = {
   /**
-   * Biome change frequency
-   * Default: 10
+   * Frequency of biomes change
+   * Default: 0.3
+   * Min: 0.0, Max: 1.0
    */
   frequencyChange?: number
 
   /**
-   * Biome size difference
-   * Default: 1.1
+   * Smoothness of biomes borders
+   * Default: 0.5
+   * Min: 0.0, Max: 1.0
    */
-  sizeDifference?: number
+  borderSmoothness?: number
 
   /**
-   * Purity of biome borders
-   * Default: 10
+   * Redistribution of biomes height
+   * Default: 1.0
+   * Min: 0.5, Max: 1.5
    */
-  bordersPurity?: number
+  heightRedistribution?: number
 };
 
-export type Biome<T> = {
-  breakpoint?: {
-    min?: number
-    max?: number
-  }
-  data: T
+export type WorldBiomeParams = {
+  /**
+   * Lower biome bound
+   * Default: 0.0
+   * Min: 0.0
+   */
+  lowerBound?: number
+
+  /**
+   * Upper biome bound
+   * Default: 1.0
+   * Max: 1.0
+   */
+  upperBound?: number
 };
 
-export type BiomeLayer<T> = {
-  biomes: Biome<T>[]
-  parameters: LayerParameters
-};
-
-export type MapParameters<T> = {
-  width: number
-  height: number
-  layers?: BiomeLayer<T>[]
-  seed?: number[]
+export type WorldBiomePosition = {
+  x: number
+  y: number
 };
