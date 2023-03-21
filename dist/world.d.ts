@@ -8,5 +8,4 @@ export declare class World<T> {
     getMatrix(): T[][];
     getAt(position: WorldBiomePosition): T | undefined;
     replaceAt(position: WorldBiomePosition, data: T): void;
-    getSeed(): number[];
 }

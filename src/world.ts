@@ -1,11 +1,11 @@
 import { WorldBiomePosition } from './types';
 
 export class World<T> {
-  readonly width: number;
+  public readonly width: number;
 
-  readonly height: number;
+  public readonly height: number;
 
-  readonly seed: number[];
+  public readonly seed: number[];
 
   private matrix: T[][] = [];
 
@@ -30,9 +30,5 @@ export class World<T> {
     }
 
     this.matrix[position.y][position.x] = data;
-  }
-
-  public getSeed() {
-    return this.seed;
   }
 }
