@@ -6,6 +6,7 @@ type NoiseParameters = {
   frequency: number
   redistribution: number
   octaves: number
+  averaging: boolean
 };
 
 const DEFAULT_PERLIN_SIZE = 4095;
@@ -33,7 +34,7 @@ export function generateSeed() {
 export function generateNoise(parameters: NoiseParameters): number {
   let { x, y } = parameters;
   const {
-    seed, frequency, redistribution, octaves,
+    seed, frequency, redistribution, octaves, averaging,
   } = parameters;
 
   const PERLIN_SIZE = seed.length - 1;
@@ -92,10 +93,12 @@ export function generateNoise(parameters: NoiseParameters): number {
     }
   }
 
-  if (r > 0.5) {
-    r **= (1.5 - r) / PERLIN_AVG_POWER;
-  } else if (r < 0.5) {
-    r **= (1.5 - r) * PERLIN_AVG_POWER;
+  if (averaging) {
+    if (r > 0.5) {
+      r **= (1.5 - r) / PERLIN_AVG_POWER;
+    } else if (r < 0.5) {
+      r **= (1.5 - r) * PERLIN_AVG_POWER;
+    }
   }
 
   r **= redistribution;

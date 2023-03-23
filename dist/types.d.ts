@@ -21,6 +21,11 @@ export type WorldLayerParams = {
      * Min: 0.5, Max: 1.5
      */
     heightRedistribution?: number;
+    /**
+     * Averaging of biomes height
+     * Default: true
+     */
+    heightAveraging?: boolean;
 };
 export type WorldBiomeParams = {
     /**

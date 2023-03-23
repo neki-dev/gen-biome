@@ -4,6 +4,7 @@ export declare class WorldLayer<T> {
     private readonly frequency;
     private readonly octaves;
     private readonly redistribution;
+    private readonly averaging;
     private biomes;
     constructor(params?: WorldLayerParams);
     addBiome(params: WorldBiomeParams, data: T): WorldBiome<T>;
@@ -14,5 +15,6 @@ export declare class WorldLayer<T> {
         frequency: number;
         octaves: number;
         redistribution: number;
+        averaging: boolean;
     };
 }

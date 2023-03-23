@@ -9,12 +9,15 @@ export class WorldLayer<T> {
 
   private readonly redistribution: number;
 
+  private readonly averaging: boolean;
+
   private biomes: WorldBiome<T>[] = [];
 
   constructor(params: WorldLayerParams = {}) {
-    this.frequency = Math.round(clamp(params?.frequencyChange, 0.3) * 31 + 1);
-    this.octaves = Math.round((1 - clamp(params?.borderSmoothness, 0.5)) * 14 + 1);
-    this.redistribution = 2.0 - clamp(params?.heightRedistribution, 1.0, [0.5, 1.5]);
+    this.frequency = Math.round(clamp(params.frequencyChange, 0.3) * 31 + 1);
+    this.octaves = Math.round((1 - clamp(params.borderSmoothness, 0.5)) * 14 + 1);
+    this.redistribution = 2.0 - clamp(params.heightRedistribution, 1.0, [0.5, 1.5]);
+    this.averaging = params.heightAveraging ?? true;
   }
 
   public addBiome(params: WorldBiomeParams, data: T) {
@@ -44,6 +47,7 @@ export class WorldLayer<T> {
       frequency: this.frequency,
       octaves: this.octaves,
       redistribution: this.redistribution,
+      averaging: this.averaging,
     };
   }
 }

@@ -20,13 +20,29 @@ export class World<T> {
     return this.matrix;
   }
 
-  public getAt(position: WorldBiomePosition): T | undefined {
-    return this.matrix[position.y]?.[position.x];
+  public each(callback: (position: WorldBiomePosition, biome: T) => boolean | void) {
+    for (let y = 0; y < this.height; y++) {
+      for (let x = 0; x < this.width; x++) {
+        const res = callback({ x, y }, this.matrix[y][x]);
+
+        if (res === false) {
+          return;
+        }
+      }
+    }
+  }
+
+  public getAt(position: WorldBiomePosition): T {
+    if (position.y >= this.height || position.x >= this.width) {
+      throw Error(`Position [${position.x},${position.y}] is out of world bounds`);
+    }
+
+    return this.matrix[position.y][position.x];
   }
 
   public replaceAt(position: WorldBiomePosition, data: T) {
     if (position.y >= this.height || position.x >= this.width) {
-      throw Error('Specified position is out of world bounds');
+      throw Error(`Position [${position.x},${position.y}] is out of world bounds`);
     }
 
     this.matrix[position.y][position.x] = data;

@@ -5,6 +5,7 @@ export const ui = {
     frequencyChange: document.querySelector<HTMLInputElement>('[name=frequencyChange]'),
     borderSmoothness: document.querySelector<HTMLInputElement>('[name=borderSmoothness]'),
     heightRedistribution: document.querySelector<HTMLInputElement>('[name=heightRedistribution]'),
+    heightAveraging: document.querySelector<HTMLInputElement>('[name=heightAveraging]'),
     worldWidth: document.querySelector<HTMLInputElement>('[name=worldWidth]'),
     worldHeight: document.querySelector<HTMLInputElement>('[name=worldHeight]'),
   },

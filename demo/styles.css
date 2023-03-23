@@ -32,26 +32,70 @@ body {
 
 .controls .parameters {
   margin-bottom: 20px;
-}
-.controls .parameters h2 {
-  margin-bottom: 10px;
-}
-.controls .parameters .items {
-  border: 1px solid #ddd;
-  padding: 15px;
+  padding: 20px;
+  background: #eee;
+  border-radius: 8px;
 }
 .controls .parameters .item:not(:last-child) {
   margin-bottom: 20px;
 }
+.controls .parameters .item.c {
+  display: flex;
+  align-items: center;
+}
 .controls .parameters .item label {
   display: block;
+  text-transform: uppercase;
+  font-size: 11px;
   margin-bottom: 3px;
+}
+.controls .parameters .item.c label {
+  margin: 0 0 0 5px;
+}
+.controls .parameters .item input[type="input"] {
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  box-shadow: 0 1px 5px #eee inset;
+  border-radius: 5px;
+  background: #fff;
+  font: 12px Tahoma;
 }
 .controls .parameters .item input[type="range"] {
   width: 100%;
 }
 
 .controls button {
-  margin-top: 15px;
   padding: 10px 15px;
+  border-radius: 5px;
+  background: #22272d;
+  border: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #fff;
+}
+.controls button:hover {
+  cursor: pointer;
+  background: #1f354f;
+}
+
+.tint {
+  margin-top: 25px;
+}
+
+.meta {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+}
+.meta a {
+  text-decoration: none;
+  color: #444;
+}
+.meta a:hover {
+  text-decoration: none;
+  color: #555;
+}
+.meta a:not(:last-child) {
+  margin-bottom: 5px;
 }

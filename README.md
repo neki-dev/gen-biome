@@ -1,4 +1,4 @@
-## ⚡ Gen Biome
+## ![Gen Biome](./docs/logotype-s.png)
 [![Npm package version](https://badgen.net/npm/v/gen-biome)](https://npmjs.com/package/gen-biome)
 [![Small size](https://img.badgesize.io/neki-dev/gen-biome/master/dist/index.js)](https://github.com/neki-dev/gen-biome/blob/master/dist/index.js)
 [![Building](https://github.com/neki-dev/gen-biome/actions/workflows/build.yml/badge.svg)](https://github.com/neki-dev/gen-biome/actions/workflows/build.yml)
@@ -40,6 +40,8 @@ const layer: WorldLayer = generator.addLayer(params?)
 * * *  _Default: 0.5, Min: 0.0, Max: 1.0_
 * * `heightRedistribution` - Redistribution of biomes height
 * * *  _Default: 1.0, Min: 0.5, Max: 1.5_
+* * `heightAveraging` - Averaging of biomes height
+* * *  _Default: true_
 
 #### Get generator layers
 ```js
@@ -96,6 +98,14 @@ const world: World = generator.generate(seed?)
 ```js
 const matrix: T[][] = world.getMatrix()
 ```
+
+#### Each all positions
+```js
+world.each(callback)
+```
+* `callback`
+* * `position` - Position at matrix
+* * `data` - Biome data
 
 #### Get biome data at position
 ```js

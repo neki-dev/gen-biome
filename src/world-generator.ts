@@ -54,7 +54,7 @@ export class WorldGenerator<T = any> {
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
         if (matrix[y][x] === undefined) {
-          throw Error(`World matrix contains empty biome at ${x},${y}`);
+          throw Error(`World matrix contains empty biome at [${x},${y}]`);
         }
       }
     }

@@ -1,11 +1,14 @@
-import { WorldGenerator } from '../../src/index';
-import { renderOnCanvas } from './render';
-import { BiomeData, BIOMES } from './biomes';
-import { ui } from './interface';
+import { WorldGenerator } from "../../src/index";
+import { BiomeData, BIOMES } from "./biomes";
+import { ui } from "./interface";
 
+const ctx = ui.screen.getContext("2d") as CanvasRenderingContext2D;
+const tileSize = 2;
 let savedSeed!: number[];
 
-ui.buttons.generate?.addEventListener('click', () => {
+function generateAndRenderWorld() {
+  // PREPARE
+
   const generator = new WorldGenerator<BiomeData>({
     width: Number(ui.inputs.worldWidth?.value),
     height: Number(ui.inputs.worldHeight?.value),
@@ -15,18 +18,30 @@ ui.buttons.generate?.addEventListener('click', () => {
     frequencyChange: Number(ui.inputs.frequencyChange?.value),
     borderSmoothness: Number(ui.inputs.borderSmoothness?.value),
     heightRedistribution: Number(ui.inputs.heightRedistribution?.value),
+    heightAveraging: ui.inputs.heightAveraging?.checked,
   });
 
   for (const { params, data } of BIOMES) {
     layer.addBiome(params, data);
   }
 
+  // GENERATE
+
   const seed = ui.inputs.resetSeed?.checked ? undefined : savedSeed;
   const world = generator.generate(seed);
 
   savedSeed = world.seed;
 
-  renderOnCanvas(world);
-});
+  // RENDER
 
-ui.buttons.generate?.click();
+  ui.screen.width = world.width * tileSize;
+  ui.screen.height = world.height * tileSize;
+
+  world.each((position, biome) => {
+    ctx.fillStyle = biome.color;
+    ctx.fillRect(position.x * tileSize, position.y * tileSize, tileSize, tileSize);
+  });
+}
+
+ui.buttons.generate?.addEventListener("click", generateAndRenderWorld);
+generateAndRenderWorld();
