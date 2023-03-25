@@ -12,7 +12,7 @@ export const BIOMES: Array<{
   {
     params: {
       lowerBound: 0.0,
-      upperBound: 0.20,
+      upperBound: 0.2,
     },
     data: {
       name: 'WATER',
