@@ -18,6 +18,7 @@ function generateAndRenderWorld() {
     frequencyChange: Number(ui.inputs.frequencyChange?.value),
     borderSmoothness: Number(ui.inputs.borderSmoothness?.value),
     heightRedistribution: Number(ui.inputs.heightRedistribution?.value),
+    falloff: Number(ui.inputs.falloff?.value),
     heightAveraging: ui.inputs.heightAveraging?.checked,
   });
 

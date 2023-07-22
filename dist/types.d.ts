@@ -26,6 +26,11 @@ export type WorldLayerParams = {
      * Default: true
      */
     heightAveraging?: boolean;
+    /**
+     * Scale of falloff area
+     * Default: 0.0
+     */
+    falloff?: number;
 };
 export type WorldBiomeParams = {
     /**

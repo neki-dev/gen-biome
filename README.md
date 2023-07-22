@@ -43,6 +43,8 @@ const layer: WorldLayer = generator.addLayer(params?)
 * * *  _Default: 1.0, Min: 0.5, Max: 1.5_
 * * `heightAveraging` - Averaging of biomes height
 * * *  _Default: true_
+* * `falloff` - Scale of falloff area
+* * *  _Default: 0.0_
 * `}`
 
 #### Get generator layers

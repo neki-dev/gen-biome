@@ -3,10 +3,13 @@ type NoiseParameters = {
   seed: number[]
   x: number
   y: number
+  width: number
+  height: number
   frequency: number
   redistribution: number
   octaves: number
   averaging: boolean
+  falloff?: number
 };
 
 const DEFAULT_PERLIN_SIZE = 4095;
@@ -21,6 +24,26 @@ function scaledCosine(i: number): number {
   return 0.5 * (1.0 - Math.cos(i * Math.PI));
 }
 
+function smootherStep(x: number) {
+  return (3 * x ** 2) - (2 * x ** 3);
+}
+
+function heightFalloff(offset: number, length: number, falloff: number) {
+  const radius = length / 2;
+  const distance = Math.abs(radius - offset);
+  const target = radius * (1 - falloff);
+
+  if (distance < target) {
+    return 1;
+  }
+
+  let x = ((distance - target) / radius) / (1 - target / radius);
+
+  x = Math.min(1, Math.max(0, x));
+
+  return 1 - smootherStep(x);
+}
+
 export function generateSeed() {
   const seed: number[] = [];
 
@@ -32,20 +55,20 @@ export function generateSeed() {
 }
 
 export function generateNoise(parameters: NoiseParameters): number {
-  let { x, y } = parameters;
   const {
-    seed, frequency, redistribution, octaves, averaging,
+    x, y, width, height,
+    seed, frequency, redistribution, octaves, averaging, falloff,
   } = parameters;
 
   const PERLIN_SIZE = seed.length - 1;
 
-  x *= frequency;
-  y *= frequency;
+  const cx = (x / width) * frequency;
+  const cy = (y / height) * frequency;
 
-  let xi = Math.floor(x);
-  let yi = Math.floor(y);
-  let xf = x - xi;
-  let yf = y - yi;
+  let xi = Math.floor(cx);
+  let yi = Math.floor(cy);
+  let xf = cx - xi;
+  let yf = cy - yi;
   let rxf;
   let ryf;
 
@@ -102,6 +125,10 @@ export function generateNoise(parameters: NoiseParameters): number {
   }
 
   r **= redistribution;
+
+  if (falloff) {
+    r *= (heightFalloff(x, width, falloff) * heightFalloff(y, height, falloff));
+  }
 
   return r;
 }

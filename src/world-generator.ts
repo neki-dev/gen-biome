@@ -72,8 +72,10 @@ export class WorldGenerator<T = any> {
         const height = generateNoise({
           ...params,
           seed,
-          x: x / this.width,
-          y: y / this.height,
+          width: this.width,
+          height: this.height,
+          x,
+          y,
         });
 
         const biome = layer.getBiomeByHeight(height);
