@@ -32,12 +32,8 @@ export class World<T> {
     }
   }
 
-  public getAt(position: WorldBiomePosition): T {
-    if (position.y >= this.height || position.x >= this.width) {
-      throw Error(`Position [${position.x},${position.y}] is out of world bounds`);
-    }
-
-    return this.matrix[position.y][position.x];
+  public getAt(position: WorldBiomePosition): T | null {
+    return this.matrix[position.y]?.[position.x] ?? null;
   }
 
   public replaceAt(position: WorldBiomePosition, data: T) {

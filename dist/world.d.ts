@@ -7,6 +7,6 @@ export declare class World<T> {
     constructor(matrix: T[][], seed: number[]);
     getMatrix(): T[][];
     each(callback: (position: WorldBiomePosition, biome: T) => boolean | void): void;
-    getAt(position: WorldBiomePosition): T;
+    getAt(position: WorldBiomePosition): T | null;
     replaceAt(position: WorldBiomePosition, data: T): void;
 }
