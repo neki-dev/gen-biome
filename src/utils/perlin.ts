@@ -1,3 +1,5 @@
+import { WorldLayerParams } from '../types';
+
 /* eslint-disable no-bitwise */
 type NoiseParameters = {
   seed: number[]
@@ -5,20 +7,16 @@ type NoiseParameters = {
   y: number
   width: number
   height: number
-  frequency: number
-  redistribution: number
-  octaves: number
-  averaging: boolean
-  falloff?: number
+  params: WorldLayerParams
 };
 
-const DEFAULT_PERLIN_SIZE = 4095;
-const PERLIN_YWRAPB = 4;
-const PERLIN_YWRAP = 1 << PERLIN_YWRAPB;
-const PERLIN_ZWRAPB = 8;
-const PERLIN_ZWRAP = 1 << PERLIN_ZWRAPB;
-const PERLIN_AMP_FALLOFF = 0.5;
-const PERLIN_AVG_POWER = 1.1;
+function clamp(
+  value: number | undefined,
+  defaultValue: number,
+  limit: [number, number] = [0, 1],
+) {
+  return Math.max(limit[0], Math.min(limit[1], value ?? defaultValue));
+}
 
 function scaledCosine(i: number): number {
   return 0.5 * (1.0 - Math.cos(i * Math.PI));
@@ -44,23 +42,24 @@ function heightFalloff(offset: number, length: number, falloff: number) {
   return 1 - smootherStep(x);
 }
 
-export function generateSeed() {
-  const seed: number[] = [];
-
-  for (let i = 0; i < DEFAULT_PERLIN_SIZE + 1; i++) {
-    seed.push(Math.random());
-  }
-
-  return seed;
-}
-
 export function generateNoise(parameters: NoiseParameters): number {
   const {
-    x, y, width, height,
-    seed, frequency, redistribution, octaves, averaging, falloff,
+    x, y, width, height, seed, params,
   } = parameters;
 
+  const frequency = Math.round(clamp(params.frequencyChange, 0.3) * 31 + 1);
+  const octaves = Math.round((1 - clamp(params.borderSmoothness, 0.5)) * 14 + 1);
+  const redistribution = 2.0 - clamp(params.heightRedistribution, 1.0, [0.5, 1.5]);
+  const falloff = clamp(params.falloff, 0.0, [0.0, 0.9]);
+  const averaging = params.heightAveraging ?? true;
+
   const PERLIN_SIZE = seed.length - 1;
+  const PERLIN_YWRAPB = 4;
+  const PERLIN_YWRAP = 1 << PERLIN_YWRAPB;
+  const PERLIN_ZWRAPB = 8;
+  const PERLIN_ZWRAP = 1 << PERLIN_ZWRAPB;
+  const PERLIN_AMP_FALLOFF = 0.5;
+  const PERLIN_AVG_POWER = 1.1;
 
   const cx = (x / width) * frequency;
   const cy = (y / height) * frequency;
@@ -127,7 +126,7 @@ export function generateNoise(parameters: NoiseParameters): number {
   r **= redistribution;
 
   if (falloff) {
-    r *= (heightFalloff(x, width, falloff) * heightFalloff(y, height, falloff));
+    r *= heightFalloff(x, width, falloff) * heightFalloff(y, height, falloff);
   }
 
   return r;

@@ -36,6 +36,11 @@ body {
   background: #eee;
   border-radius: 8px;
 }
+.controls .parameters .inline {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+}
 .controls .parameters .item:not(:last-child) {
   margin-bottom: 20px;
 }
@@ -59,6 +64,7 @@ body {
   border-radius: 5px;
   background: #fff;
   font: 12px Tahoma;
+  width: 100%;
 }
 .controls .parameters .item input[type="range"] {
   width: 100%;
@@ -91,10 +97,11 @@ body {
 .meta a {
   text-decoration: none;
   color: #444;
+  font-weight: bold;
 }
 .meta a:hover {
   text-decoration: none;
-  color: #555;
+  color: #777;
 }
 .meta a:not(:last-child) {
   margin-bottom: 5px;

@@ -1,5 +1,6 @@
 import { WorldLayerParams, WorldParams } from './types';
-import { generateNoise, generateSeed } from './utils/perlin';
+import { generateNoise } from './utils/perlin';
+import { generateSeed } from './utils/seed';
 import { World } from './world';
 import { WorldBiome } from './world-biome';
 import { WorldLayer } from './world-layer';
@@ -63,14 +64,13 @@ export class WorldGenerator<T = any> {
   }
 
   private generateLayer(layer: WorldLayer<T>, seed: number[]) {
-    const params = layer.getGenerationParams();
     const matrix: WorldBiome<T>[][] = [];
 
     for (let y = 0; y < this.height; y++) {
       matrix[y] = [];
       for (let x = 0; x < this.width; x++) {
         const height = generateNoise({
-          ...params,
+          params: layer.params,
           seed,
           width: this.width,
           height: this.height,

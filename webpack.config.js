@@ -1,5 +1,4 @@
 const path = require('path');
-const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = (_, { mode }) => {
   const isDev = mode === 'development';
@@ -29,15 +28,5 @@ module.exports = (_, { mode }) => {
       }],
     },
     devtool: isDev ? 'inline-source-map' : undefined,
-    optimization: {
-      minimize: true,
-      minimizer: [
-        new TerserPlugin({
-          terserOptions: {
-            output: { comments: false },
-          },
-        }),
-      ],
-    },
   };
 };
