@@ -1,4 +1,4 @@
-import { WorldLayerParams, WorldParams } from './types';
+import { WorldGenerationParams, WorldLayerParams, WorldParams } from './types';
 import { World } from './world';
 import { WorldLayer } from './world-layer';
 export declare class WorldGenerator<T = any> {
@@ -9,6 +9,6 @@ export declare class WorldGenerator<T = any> {
     addLayer(params?: WorldLayerParams): WorldLayer<T>;
     clearLayers(): void;
     getLayers(): WorldLayer<T>[];
-    generate(seed?: number[]): World<T>;
+    generate(params?: WorldGenerationParams): World<T>;
     private generateLayer;
 }

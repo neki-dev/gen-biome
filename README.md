@@ -90,10 +90,14 @@ layer.clearBiomes()
 
 #### Generate world
 ```ts
-const world: World = generator.generate(seed?)
+const world: World = generator.generate(params?)
 ```
-* `seed` - Generation seed
+* `params {`
+* * `seed` - Generation seed
 * * *  _Default: Autogenerate_
+* * `seedSize` - Size of seed array
+* * *  _Default: 512_
+* `}`
 
 .
 

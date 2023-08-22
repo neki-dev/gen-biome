@@ -54,6 +54,20 @@ export type WorldBiomeParams = {
   upperBound?: number
 };
 
+export type WorldGenerationParams = {
+  /**
+   * Generation seed
+   * Default: Autogenerate
+   */
+  seed?: number[]
+
+  /**
+   * Size of seed array
+   * Default: 512
+   */
+  seedSize?: number
+};
+
 export type WorldBiomePosition = {
   x: number
   y: number

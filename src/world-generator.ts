@@ -1,4 +1,4 @@
-import { WorldLayerParams, WorldParams } from './types';
+import { WorldGenerationParams, WorldLayerParams, WorldParams } from './types';
 import { generateNoise } from './utils/perlin';
 import { generateSeed } from './utils/seed';
 import { World } from './world';
@@ -33,8 +33,8 @@ export class WorldGenerator<T = any> {
     return this.layers;
   }
 
-  public generate(seed?: number[]) {
-    const currentSeed = seed ?? generateSeed();
+  public generate(params?: WorldGenerationParams) {
+    const currentSeed = params?.seed ?? generateSeed(params?.seedSize);
     const matrix: T[][] = [];
 
     for (const layer of this.layers) {

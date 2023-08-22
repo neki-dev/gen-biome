@@ -28,8 +28,9 @@ function generateAndRenderWorld() {
 
   // GENERATE
 
-  const seed = ui.inputs.resetSeed?.checked ? undefined : savedSeed;
-  const world = generator.generate(seed);
+  const world = generator.generate({ 
+    seed: ui.inputs.resetSeed?.checked ? undefined : savedSeed,
+  });
 
   savedSeed = world.seed;
 
