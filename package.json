@@ -1,7 +1,7 @@
 {
   "name": "gen-biome",
   "description": "Procedural generation 2D map with biomes",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "keywords": [
     "map",
     "generation",
@@ -25,13 +25,13 @@
     "lint": "eslint ./src --fix"
   },
   "devDependencies": {
-    "eslint": "^8.36.0",
-    "eslint-config-neki": "^1.3.0",
-    "@types/node": "^18.15.9",
-    "ts-loader": "^9.4.2",
-    "typescript": "^5.0.2",
-    "webpack": "^5.76.3",
-    "webpack-cli": "^5.0.1"
+    "eslint": "8.56.0",
+    "eslint-config-neki": "1.3.0",
+    "@types/node": "20.10.5",
+    "ts-loader": "9.5.1",
+    "typescript": "5.3.3",
+    "webpack": "5.89.0",
+    "webpack-cli": "5.1.4"
   },
   "repository": {
     "type": "git",
