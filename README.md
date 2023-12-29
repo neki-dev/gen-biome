@@ -7,9 +7,21 @@ Procedural generation 2D map with biomes
 
 .
 
-* ### [Demo](https://gen-biome.neki.guru/)
+[Demo](https://gen-biome.neki.guru/)
 
-* ### Install
+Documentation
+
+* [Install](https://github.com/neki-dev/gen-biome?tab=readme-ov-file#install)
+* [Generator](https://github.com/neki-dev/gen-biome?tab=readme-ov-file#generator)
+* [Layers](https://github.com/neki-dev/gen-biome?tab=readme-ov-file#layers)
+* [Biomes](https://github.com/neki-dev/gen-biome?tab=readme-ov-file#biomes)
+* [Generation](https://github.com/neki-dev/gen-biome?tab=readme-ov-file#generation)
+* [World](https://github.com/neki-dev/gen-biome?tab=readme-ov-file#world)
+* [Example](https://github.com/neki-dev/gen-biome?tab=readme-ov-file#example)
+
+.
+
+## Install
 
 ```sh
 npm i gen-biome
@@ -87,7 +99,6 @@ layer.clearBiomes()
 .
 
 ## Generation
-
 #### Generate world
 ```ts
 const world: World = generator.generate(params?)
@@ -102,7 +113,6 @@ const world: World = generator.generate(params?)
 .
 
 ## World
-
 #### Get matrix of biomes data
 ```ts
 const matrix: T[][] = world.getMatrix()
@@ -157,7 +167,6 @@ const height: number = world.height
 
 ```ts
 const TILE_SIZE = 2;
-
 const BIOMES = [
   { // WATER
     params: { lowerBound: 0.0, upperBound: 0.2 },
