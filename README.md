@@ -13,7 +13,6 @@ Documentation
 
 * [Install](https://github.com/neki-dev/gen-biome?tab=readme-ov-file#install)
 * [Generator](https://github.com/neki-dev/gen-biome?tab=readme-ov-file#generator)
-* [Layers](https://github.com/neki-dev/gen-biome?tab=readme-ov-file#layers)
 * [Biomes](https://github.com/neki-dev/gen-biome?tab=readme-ov-file#biomes)
 * [Generation](https://github.com/neki-dev/gen-biome?tab=readme-ov-file#generation)
 * [World](https://github.com/neki-dev/gen-biome?tab=readme-ov-file#world)
@@ -32,21 +31,11 @@ npm i gen-biome
 ## Generator
 #### Create world generator
 ```ts
-const generator = new WorldGenerator<T>(params)
+const generator = new WorldGenerator<T>(config)
 ```
-* `params {`
+* `config {`
 * * `width` - Map width
 * * `height` - Map height
-* `}`
-
-.
-
-## Layers
-#### Add layer to generator
-```ts
-const layer: WorldLayer = generator.addLayer(params?)
-```
-* `params {`
 * * `frequencyChange` - Frequency of biomes change
 * * * _Default: 0.3, Min: 0.0, Max: 1.0_
 * * `borderSmoothness` - Smoothness of biomes borders
@@ -59,23 +48,13 @@ const layer: WorldLayer = generator.addLayer(params?)
 * * *  _Default: 0.0_
 * `}`
 
-#### Get generator layers
-```ts
-const layers: WorldLayers[] = generator.getLayers()
-```
-
-#### Clear all generator layers
-```ts
-generator.clearLayers()
-```
-
 .
 
 ## Biomes
 #### Add biome to layer
 ```ts
 for (const { params, data } of ...) {
-  const biome: WorldBiome = layer.addBiome(params, data)
+  const biome: WorldBiome = generator.addBiome(params, data)
 }
 ```
 * `params {`
@@ -108,6 +87,10 @@ const world: World = generator.generate(params?)
 * * *  _Default: Autogenerate_
 * * `seedSize` - Size of seed array
 * * *  _Default: 512_
+* * `offsetX` - Generation offset X
+* * *  _Default: 0_
+* * `offsetY` - Generation offset Y
+* * *  _Default: 0_
 * `}`
 
 .
@@ -187,10 +170,8 @@ const generator = new WorldGenerator({
   height: 100,
 });
 
-const layer = generator.addLayer();
-
 for (const { params, data } of BIOMES) {
-  layer.addBiome(params, data);
+  generator.addBiome(params, data);
 }
 
 const world = generator.generate();

@@ -1,14 +1,4 @@
-import { WorldLayerParams } from '../types';
-
-/* eslint-disable no-bitwise */
-type NoiseParameters = {
-  seed: number[]
-  x: number
-  y: number
-  width: number
-  height: number
-  params: WorldLayerParams
-};
+import type { PerlinParameters } from "./types";
 
 function clamp(
   value: number | undefined,
@@ -42,16 +32,14 @@ function heightFalloff(offset: number, length: number, falloff: number) {
   return 1 - smootherStep(x);
 }
 
-export function generateNoise(parameters: NoiseParameters): number {
-  const {
-    x, y, width, height, seed, params,
-  } = parameters;
+export function generateNoise(parameters: PerlinParameters): number {
+  const { x, y, seed, config } = parameters;
 
-  const frequency = Math.round(clamp(params.frequencyChange, 0.3) * 31 + 1);
-  const octaves = Math.round((1 - clamp(params.borderSmoothness, 0.5)) * 14 + 1);
-  const redistribution = 2.0 - clamp(params.heightRedistribution, 1.0, [0.5, 1.5]);
-  const falloff = clamp(params.falloff, 0.0, [0.0, 0.9]);
-  const averaging = params.heightAveraging ?? true;
+  const frequency = Math.round(clamp(config.frequencyChange, 0.3) * 31 + 1);
+  const octaves = Math.round((1 - clamp(config.borderSmoothness, 0.5)) * 14 + 1);
+  const redistribution = 2.0 - clamp(config.heightRedistribution, 1.0, [0.5, 1.5]);
+  const falloff = clamp(config.falloff, 0.0, [0.0, 0.9]);
+  const averaging = config.heightAveraging ?? true;
 
   const PERLIN_SIZE = seed.length - 1;
   const PERLIN_YWRAPB = 4;
@@ -61,8 +49,8 @@ export function generateNoise(parameters: NoiseParameters): number {
   const PERLIN_AMP_FALLOFF = 0.5;
   const PERLIN_AVG_POWER = 1.1;
 
-  const cx = (x / width) * frequency;
-  const cy = (y / height) * frequency;
+  const cx = (x / config.width) * frequency;
+  const cy = (y / config.height) * frequency;
 
   let xi = Math.floor(cx);
   let yi = Math.floor(cy);
@@ -126,7 +114,7 @@ export function generateNoise(parameters: NoiseParameters): number {
   r **= redistribution;
 
   if (falloff) {
-    r *= heightFalloff(x, width, falloff) * heightFalloff(y, height, falloff);
+    r *= heightFalloff(x, config.width, falloff) * heightFalloff(y, config.height, falloff);
   }
 
   return r;

@@ -1,4 +1,4 @@
-import { WorldBiomeParams } from '../../src';
+import type { WorldBiomeConfig } from "../../src";
 
 export type BiomeData = {
   name: string
@@ -6,7 +6,7 @@ export type BiomeData = {
 };
 
 export const BIOMES: Array<{
-  params: WorldBiomeParams
+  params: WorldBiomeConfig
   data: BiomeData
 }> = [
   {

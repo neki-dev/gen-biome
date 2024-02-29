@@ -1,5 +1,6 @@
-import { WorldGenerator } from "../../src/index";
-import { BiomeData, BIOMES } from "./biomes";
+import { WorldGenerator } from "../../src";
+import type { BiomeData } from "./biomes";
+import { BIOMES } from "./biomes";
 import { ui } from "./interface";
 
 const ctx = ui.screen.getContext("2d") as CanvasRenderingContext2D;
@@ -7,14 +8,13 @@ const tileSize = 2;
 let savedSeed!: number[];
 
 function generateAndRenderWorld() {
-  // PREPARE
+  /**
+   * PREPARE
+   */
 
   const generator = new WorldGenerator<BiomeData>({
     width: Number(ui.inputs.worldWidth?.value),
     height: Number(ui.inputs.worldHeight?.value),
-  });
-
-  const layer = generator.addLayer({
     frequencyChange: Number(ui.inputs.frequencyChange?.value),
     borderSmoothness: Number(ui.inputs.borderSmoothness?.value),
     heightRedistribution: Number(ui.inputs.heightRedistribution?.value),
@@ -23,18 +23,22 @@ function generateAndRenderWorld() {
   });
 
   for (const { params, data } of BIOMES) {
-    layer.addBiome(params, data);
+    generator.addBiome(params, data);
   }
 
-  // GENERATE
+  /**
+   * GENERATE
+   */
 
-  const world = generator.generate({ 
+  const world = generator.generate({
     seed: ui.inputs.resetSeed?.checked ? undefined : savedSeed,
   });
 
   savedSeed = world.seed;
 
-  // RENDER
+  /**
+   * RENDER
+   */
 
   ui.screen.width = world.width * tileSize;
   ui.screen.height = world.height * tileSize;

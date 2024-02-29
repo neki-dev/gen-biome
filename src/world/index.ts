@@ -1,6 +1,6 @@
-import { WorldBiomePosition } from './types';
+import type { WorldPoint } from "./types";
 
-export class World<T> {
+export class World<T extends object> {
   public readonly width: number;
 
   public readonly height: number;
@@ -20,11 +20,10 @@ export class World<T> {
     return this.matrix;
   }
 
-  public each(callback: (position: WorldBiomePosition, biome: T) => boolean | void) {
+  public each(callback: (point: WorldPoint, biome: T) => boolean | void): void {
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
         const res = callback({ x, y }, this.matrix[y][x]);
-
         if (res === false) {
           return;
         }
@@ -32,15 +31,15 @@ export class World<T> {
     }
   }
 
-  public getAt(position: WorldBiomePosition): T | null {
-    return this.matrix[position.y]?.[position.x] ?? null;
+  public getAt(point: WorldPoint): T | null {
+    return this.matrix[point.y]?.[point.x] ?? null;
   }
 
-  public replaceAt(position: WorldBiomePosition, data: T) {
-    if (position.y >= this.height || position.x >= this.width) {
-      throw Error(`Position [${position.x},${position.y}] is out of world bounds`);
+  public replaceAt(point: WorldPoint, data: T): void {
+    if (point.y >= this.height || point.x >= this.width) {
+      throw Error(`Position [${point.x},${point.y}] is out of world bounds`);
     }
 
-    this.matrix[position.y][position.x] = data;
+    this.matrix[point.y][point.x] = data;
   }
 }

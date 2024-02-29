@@ -1,9 +1,14 @@
-export type WorldParams = {
+export type WorldConfig = {
+  /**
+   * World width
+   */
   width: number
-  height: number
-};
 
-export type WorldLayerParams = {
+  /**
+   * World height
+   */
+  height: number
+
   /**
    * Frequency of biomes change
    * Default: 0.3
@@ -38,37 +43,7 @@ export type WorldLayerParams = {
   falloff?: number
 };
 
-export type WorldBiomeParams = {
-  /**
-   * Lower biome bound
-   * Default: 0.0
-   * Min: 0.0
-   */
-  lowerBound?: number
-
-  /**
-   * Upper biome bound
-   * Default: 1.0
-   * Max: 1.0
-   */
-  upperBound?: number
-};
-
-export type WorldGenerationParams = {
-  /**
-   * Generation seed
-   * Default: Autogenerate
-   */
-  seed?: number[]
-
-  /**
-   * Size of seed array
-   * Default: 512
-   */
-  seedSize?: number
-};
-
-export type WorldBiomePosition = {
+export type WorldPoint = {
   x: number
   y: number
 };
