@@ -3,7 +3,7 @@
 [![Small size](https://img.badgesize.io/neki-dev/gen-biome/master/dist/index.js)](https://github.com/neki-dev/gen-biome/blob/master/dist/index.js)
 [![Building](https://github.com/neki-dev/gen-biome/actions/workflows/build.yml/badge.svg)](https://github.com/neki-dev/gen-biome/actions/workflows/build.yml)
 
-Procedural generation 2D map with biomes
+Procedural generation of 2D maps with distinct biomes
 
 .
 
