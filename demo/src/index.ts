@@ -4,7 +4,6 @@ import { BIOMES } from "./biomes";
 import { ui } from "./interface";
 
 const ctx = ui.screen.getContext("2d") as CanvasRenderingContext2D;
-const tileSize = 2;
 let savedSeed!: number[];
 
 function generateAndRenderWorld() {
@@ -39,6 +38,8 @@ function generateAndRenderWorld() {
   /**
    * RENDER
    */
+
+  const tileSize = Number(ui.inputs.tileSize?.value);
 
   ui.screen.width = world.width * tileSize;
   ui.screen.height = world.height * tileSize;

@@ -11,8 +11,18 @@ export const ui = {
     heightAveraging: input('heightAveraging'),
     worldWidth: input('worldWidth'),
     worldHeight: input('worldHeight'),
+    tileSize: input('tileSize'),
   },
   buttons: {
     generate: document.getElementById('generate'),
   },
 };
+
+Object.entries(ui.inputs).forEach(([name, input]) => {
+  input?.addEventListener('input', () => {
+    const value = document.getElementById(name + 'Value');
+    if (value) {
+      value.innerText = Number(input.value).toFixed(2);
+    }
+  });
+});
