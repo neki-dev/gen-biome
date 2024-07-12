@@ -1,1 +1,3 @@
-export declare function generateSeed(size?: number): number[];
+export declare class Seed {
+    static generate(size?: number): number[];
+}

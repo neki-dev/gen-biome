@@ -1,6 +1,6 @@
 import type { WorldGenerationParams } from "./types";
-import { generateNoise } from "../utils/perlin";
-import { generateSeed } from "../utils/seed";
+import { Perlin } from "../utils/perlin";
+import { Seed } from "../utils/seed";
 import { World } from "../world";
 import { WorldBiome } from "../world/biome";
 import type { WorldConfig } from "../world/types";
@@ -37,13 +37,13 @@ export class WorldGenerator<T extends object> {
   }
 
   public generate(params?: WorldGenerationParams): World<T> {
-    const currentSeed = params?.seed ?? generateSeed(params?.seedSize);
+    const currentSeed = params?.seed ?? Seed.generate(params?.seedSize);
     const matrix: T[][] = [];
 
     for (let y = 0; y < this.config.height; y++) {
       matrix[y] = [];
       for (let x = 0; x < this.config.width; x++) {
-        const height = generateNoise({
+        const height = Perlin.generate({
           config: this.config,
           seed: currentSeed,
           x: x + (params?.offsetX ?? 0),

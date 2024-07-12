@@ -36,10 +36,6 @@ export class World<T extends object> {
   }
 
   public replaceAt(point: WorldPoint, data: T): void {
-    if (point.y >= this.height || point.x >= this.width) {
-      throw Error(`Position [${point.x},${point.y}] is out of world bounds`);
-    }
-
     this.matrix[point.y][point.x] = data;
   }
 }
