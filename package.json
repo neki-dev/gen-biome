@@ -20,8 +20,9 @@
   },
   "main": "./dist/index.js",
   "scripts": {
-    "watch": "webpack --mode development --watch",
+    "watch": "webpack --mode development--name demo --watch",
     "build": "webpack --mode production",
+    "build:demo": "webpack --mode production --name demo",
     "lint": "eslint ./src --fix"
   },
   "devDependencies": {

@@ -1,0 +1,23 @@
+name: deploy
+on: push
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14.x'
+      - name: Installing
+        run: yarn install
+      - name: Building
+        run: yarn build:demo
+      - name: Deploying
+        uses: burnett01/rsync-deployments@7.0.1
+        with:
+          switches: -a --delete --progress
+          path: demo/
+          remote_path: ${{ secrets.SSH_REMOTE_DIR }}
+          remote_host: ${{ secrets.SSH_HOST }}
+          remote_user: ${{ secrets.SSH_USER }}
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
