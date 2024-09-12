@@ -1,7 +1,7 @@
 {
   "name": "gen-biome",
   "description": "Procedural generation of 2D maps with distinct biomes",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "keywords": [
     "map",
     "generation",

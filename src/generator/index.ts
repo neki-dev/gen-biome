@@ -2,9 +2,9 @@ import type { WorldGenerationParams } from "./types";
 import { Perlin } from "../utils/perlin";
 import { Seed } from "../utils/seed";
 import { World } from "../world";
-import { WorldBiome } from "../world/biome";
+import { WorldBiome } from "../biome";
 import type { WorldConfig } from "../world/types";
-import type { WorldBiomeConfig } from "../world/biome/types";
+import type { WorldBiomeConfig } from "../biome/types";
 
 export class WorldGenerator<T extends object> {
   readonly config: WorldConfig;

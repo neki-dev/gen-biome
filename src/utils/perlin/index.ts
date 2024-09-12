@@ -8,6 +8,9 @@ import {
 } from "./const";
 import type { PerlinParameters } from "./types";
 
+/**
+ * @internal
+ */
 export class Perlin {
   public static generate({ x, y, seed, config }: PerlinParameters): number {
     const {
