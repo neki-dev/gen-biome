@@ -1,9 +1,10 @@
-import { WorldGenerator } from "../../src";
-import type { BiomeData } from "./biomes";
-import { BIOMES } from "./biomes";
-import { ui } from "./interface";
+import { WorldGenerator } from '../../src';
 
-const ctx = ui.screen.getContext("2d") as CanvasRenderingContext2D;
+import type { BiomeData } from './biomes';
+import { BIOMES } from './biomes';
+import { ui } from './interface';
+
+const ctx = ui.screen.getContext('2d') as CanvasRenderingContext2D;
 let savedSeed!: number[];
 
 function generateAndRenderWorld() {
@@ -50,5 +51,5 @@ function generateAndRenderWorld() {
   });
 }
 
-ui.buttons.generate?.addEventListener("click", generateAndRenderWorld);
+ui.buttons.generate?.addEventListener('click', generateAndRenderWorld);
 generateAndRenderWorld();

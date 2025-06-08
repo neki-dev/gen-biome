@@ -1,12 +1,13 @@
-import type { WorldConfig } from "../../world/types";
+import type { WorldConfig } from '../../world/types';
+
 import {
   PERLIN_AMP_FALLOFF,
   PERLIN_AVG_POWER,
   PERLIN_YWRAP,
   PERLIN_YWRAPB,
   PERLIN_ZWRAP,
-} from "./const";
-import type { PerlinParameters } from "./types";
+} from './const';
+import type { PerlinParameters } from './types';
 
 /**
  * @internal
@@ -87,7 +88,7 @@ export class Perlin {
   private static clamp(
     value: number | undefined,
     defaultValue: number,
-    limit: [number, number] = [0, 1]
+    limit: [number, number] = [0, 1],
   ) {
     return Math.max(limit[0], Math.min(limit[1], value ?? defaultValue));
   }
@@ -103,7 +104,7 @@ export class Perlin {
   private static heightFalloff(
     offset: number,
     length: number,
-    falloff: number
+    falloff: number,
   ) {
     const radius = length / 2;
     const distance = Math.abs(radius - offset);
@@ -123,10 +124,10 @@ export class Perlin {
   private static normalizeConfig(config: WorldConfig) {
     return {
       frequencyChange: Math.round(
-        this.clamp(config.frequencyChange, 0.3) * 31 + 1
+        this.clamp(config.frequencyChange, 0.3) * 31 + 1,
       ),
       borderSmoothness: Math.round(
-        (1 - this.clamp(config.borderSmoothness, 0.5)) * 14 + 1
+        (1 - this.clamp(config.borderSmoothness, 0.5)) * 14 + 1,
       ),
       heightRedistribution:
         2.0 - this.clamp(config.heightRedistribution, 1.0, [0.5, 1.5]),

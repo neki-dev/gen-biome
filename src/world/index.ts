@@ -1,4 +1,4 @@
-import type { WorldPoint } from "./types";
+import type { WorldPoint } from './types';
 
 export class World<T extends object> {
   public readonly width: number;

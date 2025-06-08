@@ -1,4 +1,4 @@
-import type { WorldConfig } from "../../world/types";
+import type { WorldConfig } from '../../world/types';
 
 /**
  * @internal

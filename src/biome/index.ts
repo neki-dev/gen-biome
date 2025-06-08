@@ -1,4 +1,4 @@
-import type { WorldBiomeConfig } from "./types";
+import type { WorldBiomeConfig } from './types';
 
 export class WorldBiome<T extends object> {
   public readonly lowerBound: number;

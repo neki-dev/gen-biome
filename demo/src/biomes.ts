@@ -1,4 +1,4 @@
-import type { WorldBiomeConfig } from "../../src";
+import type { WorldBiomeConfig } from '../../src';
 
 export type BiomeData = {
   name: string

@@ -1,7 +1,7 @@
 {
   "name": "gen-biome",
   "description": "Procedural generation of 2D maps with distinct biomes",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "keywords": [
     "map",
     "generation",
@@ -23,14 +23,16 @@
     "watch": "webpack --mode development--name demo --watch",
     "build": "webpack --mode production",
     "build:demo": "webpack --mode production --name demo",
-    "lint": "eslint ./src --fix"
+    "lint": "eslint \"./src/**/*.{ts,tsx}\" --ignore-path .gitignore --fix"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "8.24.0",
+    "@typescript-eslint/parser": "8.24.0",
     "eslint": "8.57.0",
+    "eslint-plugin-import": "2.31.0",
     "@types/node": "20.10.5",
     "ts-loader": "9.5.1",
     "typescript": "5.3.3",
-    "typescript-eslint": "7.1.0",
     "webpack": "5.89.0",
     "webpack-cli": "5.1.4"
   },

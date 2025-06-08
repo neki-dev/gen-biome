@@ -1,4 +1,4 @@
-import type { WorldBiomeConfig } from "./types";
+import type { WorldBiomeConfig } from './types';
 export declare class WorldBiome<T extends object> {
     readonly lowerBound: number;
     readonly upperBound: number;

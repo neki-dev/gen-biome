@@ -1,8 +1,8 @@
-import type { WorldGenerationParams } from "./types";
-import { World } from "../world";
-import { WorldBiome } from "../biome";
-import type { WorldConfig } from "../world/types";
-import type { WorldBiomeConfig } from "../biome/types";
+import { WorldBiome } from '../biome';
+import type { WorldBiomeConfig } from '../biome/types';
+import { World } from '../world';
+import type { WorldConfig } from '../world/types';
+import type { WorldGenerationParams } from './types';
 export declare class WorldGenerator<T extends object> {
     readonly config: WorldConfig;
     private biomes;
